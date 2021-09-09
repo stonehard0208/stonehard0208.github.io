@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"stonehard0208.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="安卓开发：具有天气预报功能的记事本APP （一）记事本">
+<meta property="og:url" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/index.html">
+<meta property="og:site_name" content="Chaya&#39;s blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/1.jpg">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/47c5aed36e2b261075828252a9f541ea.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/e210605ff2898ccd08e507116c928a43.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/a4250574ae8c07be4f58f1d8535ed4f3.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/e2334b8f59021061425c7e0e56dd6e02.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/d467c79d939c6e993b61815526992341.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/531a58d21f47e55c66d530aaf9045aaa.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/27ca9797c395f1f620f18f1a054a69d9.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/95a5d7c8f7c3fd62be93056134a0387a.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/b510802023d1529c91cf26e43e415149.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/1bf4e6b05a238eb55b15fa11e035d7f1.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/078105eed1abfaa69774d35441750231.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/57e02167c58e63e2a5927fa94e54f5ee.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/e2bb2f26a5eebb17d0bcfcfb020c2c22.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/794b2dbbf2a9ec5b5135c464a707d0e1.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/5183aa28cea9fad0ac368082da3ea3cb.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/fa946ecf8e35b59e8964f9e73781d6d9.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/9583122a81511bdf2423f165a7d30e04.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/14d97e1e74e0a7df111566ad2ebb97cd.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/278615db5b1982ddcf045d5713263817.jpeg">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/7245fa8ff1a0c68ef551851a859d65ca.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/d4bec1a5de66515391c9f0681f7e4c27.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/6694a6b40ec845fb7b676f19e6358d97.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/bd08f712c854383e1f8cf9d19f079d90.jpeg">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/149fd1f724e076cc733b86b990cc0ac9.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/1161755308813e2fb6b9cb81b094ebce.png">
+<meta property="article:published_time" content="2021-04-21T02:05:36.000Z">
+<meta property="article:modified_time" content="2021-04-21T02:22:11.302Z">
+<meta property="article:author" content="Chaya Chen Yin">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/1.jpg">
+
+<link rel="canonical" href="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>安卓开发：具有天气预报功能的记事本APP （一）记事本 | Chaya's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Chaya's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Chaya Chen Yin">
+      <meta itemprop="description" content="RECORD MY LIFE">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chaya's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          安卓开发：具有天气预报功能的记事本APP （一）记事本
+        </h1>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-04-21 10:05:36 / 修改时间：10:22:11" itemprop="dateCreated datePublished" datetime="2021-04-21T10:05:36+08:00">2021-04-21</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="/2021/04/21/notebook-with-weatherforcast/1.jpg" alt="1"></p>
+<span id="more"></span>
+
+<h2 id="本项目Github"><a href="#本项目Github" class="headerlink" title="本项目Github"></a>本项目Github</h2><p><a target="_blank" rel="noopener" href="https://github.com/stonehard0208/notebook-with-weatherforecast">Github</a></p>
+<h1 id="代码解读-Code-interpretation"><a href="#代码解读-Code-interpretation" class="headerlink" title="代码解读 Code interpretation"></a>代码解读 Code interpretation</h1><h2 id="记事本功能-NoteBook-funuction"><a href="#记事本功能-NoteBook-funuction" class="headerlink" title="记事本功能 NoteBook funuction"></a>记事本功能 NoteBook funuction</h2><p>包含两个部分，一个是部分单纯的文本记录功能，还有一个是每一个笔记的提醒时间设置功能。每一个笔记的id、标题、内容和提醒时间等相关信息都作为Note类的属性进行存放。</p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/47c5aed36e2b261075828252a9f541ea.png" alt="1592176561(1)"></p>
+<p>SQLite数据库中表的创建也是按照Note类的属性的。</p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/e210605ff2898ccd08e507116c928a43.png" alt="1592176932(1)"></p>
+<p>用户点击首页右上角的“+”号创建笔记，笔记的创建需要用户输入标题和内容，提醒时间如果没有设置就会使用默认的提醒时间，提交笔记保存后会判断笔记输入的内容是否为空，即文本长度为0，然后将输入的内容封装成Note类型的对象，然后调用SimpleDatabase类中的addNote方法，传递参数为Note对象，使用ContentValues<br>插入数据，每一个笔记的id属性都是由插入数据库中存储后才产生并返回的，id是唯一的所以可以根据笔记的id进行查找。</p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/a4250574ae8c07be4f58f1d8535ed4f3.png" alt="1592176879(1)"><img src="/2021/04/21/notebook-with-weatherforcast/e2334b8f59021061425c7e0e56dd6e02.png"></p>
+<p>首页展示用户的已有的笔记列表时会使用List&lt;Note&gt;存储从数据库查找的所有已经创建保存的笔记。如果用户还没有保存过笔记，即List&lt;Note&gt;是空的，就展示activity_main.xml中TextView“未记过笔记，请点右上方+进行创建”的提示信息。</p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/d467c79d939c6e993b61815526992341.png" alt="1592177673(1)"></p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/531a58d21f47e55c66d530aaf9045aaa.png" alt="1592177819(1)"></p>
+<p>如果搜寻结果不为空，即用户记录过笔记，就用displayList方法将List&lt;Note&gt;传递进去，借助RecyclerView、Adapter显示数据。</p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/27ca9797c395f1f620f18f1a054a69d9.png" alt="1592177959(1)"></p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/95a5d7c8f7c3fd62be93056134a0387a.png" alt="1592178238"></p>
+<p>首页中笔记的显示还要添加被选时允许展示笔记详情内容的事件，用的是itemView的setOnClickListener，点击后会跳转到对应笔记的内容显示，用户的是笔记的ID属性进行Activity的跳转。</p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/b510802023d1529c91cf26e43e415149.png" alt="1592178736(1)"></p>
+<p>其中一个重要的方法是通过id获取笔记，利用id作为数据库查找的依据。</p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/1bf4e6b05a238eb55b15fa11e035d7f1.png"></p>
+<p>此时界面右下方的FloatingActionButton提供了删除功能，设置的点击事件为笔记删除，用的是SimpleDatabase的deleNote方法，传入了Note对象的id属性进行删除，并且用Toast提醒用户笔记已经被删除的信息。</p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/078105eed1abfaa69774d35441750231.png" alt="1592178849(1)"></p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/57e02167c58e63e2a5927fa94e54f5ee.png" alt="1592178803(1)"></p>
+<p>笔记详情展示界面还有允许用户编辑修改的功能，编辑按钮在Toolbar上面的Menu中，如果选择的是edit的item就要跳转到编辑界面，这个界面与笔记创建界面几乎相同，但是完成编辑后调用的是SimpleDatabase的editNote方法，同样是传入将笔记的id、标题、时间、内容等信息封装而成的对象，在数据库中的更新也是借助笔记的id进行的。</p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/e2bb2f26a5eebb17d0bcfcfb020c2c22.png" alt="1592179042(1)"></p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/794b2dbbf2a9ec5b5135c464a707d0e1.png" alt="1592179204(1)"></p>
+<h2 id="闹钟提醒功能-Clock-function"><a href="#闹钟提醒功能-Clock-function" class="headerlink" title="闹钟提醒功能 Clock function"></a>闹钟提醒功能 Clock function</h2><p>ClockManager类中存放的是获取系统闹钟服务、取消闹钟以及添加脑中的服务，在添加闹钟与更新闹钟均使用addAlarm函数，在函数中，添加闹钟前，如果已经添加过闹钟，则该闹钟被取消。</p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/5183aa28cea9fad0ac368082da3ea3cb.png"></p>
+<p>在名字为edit和add_note的xml文件中，添加了提醒时间框。</p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/fa946ecf8e35b59e8964f9e73781d6d9.png"></p>
+<p>在EditText中设置参数，让其不可输入但是可以点击</p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/9583122a81511bdf2423f165a7d30e04.png"></p>
+<p>在add_note类中datePickClick在点击该EditText的时候被调用。弹出时间选择器供用户选择时间</p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/14d97e1e74e0a7df111566ad2ebb97cd.png"></p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/278615db5b1982ddcf045d5713263817.jpeg" alt="cce31264977b20b35cf20d5c619722c"></p>
+<p>点击保存后，以下代码会在系统中添加闹钟用于提醒</p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/7245fa8ff1a0c68ef551851a859d65ca.png"></p>
+<p>到时间后，ClockReceive会接收到广播，onReceive函数接收到广播后调用postToClockActivity函数来启动ClockActivity类，ClockActivity调用函数clock（）；</p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/d4bec1a5de66515391c9f0681f7e4c27.png"></p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/6694a6b40ec845fb7b676f19e6358d97.png"></p>
+<p>弹出dialog_alarm_layout布局，用于提醒用户事件未完成</p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/bd08f712c854383e1f8cf9d19f079d90.jpeg" alt="0194ac593952ca6dc17f4ce3b24ec54"></p>
+<p>函数中以下三个函数让提醒的界面有闹铃声音以及震动</p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/149fd1f724e076cc733b86b990cc0ac9.png"></p>
+<p>如果屏幕没有唤醒则调用wakeUpAndUnlock函数</p>
+<p><img src="/2021/04/21/notebook-with-weatherforcast/1161755308813e2fb6b9cb81b094ebce.png"></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Chaya Chen Yin
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/" title="安卓开发：具有天气预报功能的记事本APP （一）记事本">http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+
+     
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Android/" rel="tag"># Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/19/human-action-video-recognition/" rel="prev" title="基于深度学习的人体行为视频识别项目 （一）数据处理">
+      <i class="fa fa-chevron-left"></i> 基于深度学习的人体行为视频识别项目 （一）数据处理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/21/notebook-with-weatherforcast2/" rel="next" title="安卓开发：具有天气预报功能的记事本APP （二）天气预报">
+      安卓开发：具有天气预报功能的记事本APP （二）天气预报 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  
+        <div>
+           <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        </div>
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%AC%E9%A1%B9%E7%9B%AEGithub"><span class="nav-number">1.</span> <span class="nav-text">本项目Github</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%A7%A3%E8%AF%BB-Code-interpretation"><span class="nav-number"></span> <span class="nav-text">代码解读 Code interpretation</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%B0%E4%BA%8B%E6%9C%AC%E5%8A%9F%E8%83%BD-NoteBook-funuction"><span class="nav-number">1.</span> <span class="nav-text">记事本功能 NoteBook funuction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%97%B9%E9%92%9F%E6%8F%90%E9%86%92%E5%8A%9F%E8%83%BD-Clock-function"><span class="nav-number">2.</span> <span class="nav-text">闹钟提醒功能 Clock function</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chaya Chen Yin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Chaya Chen Yin</p>
+  <div class="site-description" itemprop="description">RECORD MY LIFE</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/stonehard0208" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stonehard0208" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1696831078@qq.com" title="E-Mail → mailto:1696831078@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021-04 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chaya Chen Yin</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共5.8k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

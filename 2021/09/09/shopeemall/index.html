@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"stonehard0208.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="基于SpringBoot+Nginx+Redis的电子商城（一）">
+<meta property="og:url" content="http://stonehard0208.github.io/2021/09/09/shopeemall/index.html">
+<meta property="og:site_name" content="Chaya&#39;s blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall/front.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall/1.jpg">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall/2.jpg">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall/3.jpg">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall/4.jpg">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall/5.jpg">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall/6.jpg">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall/7.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall/8.png">
+<meta property="article:published_time" content="2021-09-09T01:19:18.000Z">
+<meta property="article:modified_time" content="2021-09-09T02:34:58.795Z">
+<meta property="article:author" content="Chaya Chen Yin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall/front.png">
+
+<link rel="canonical" href="http://stonehard0208.github.io/2021/09/09/shopeemall/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>基于SpringBoot+Nginx+Redis的电子商城（一） | Chaya's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Chaya's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://stonehard0208.github.io/2021/09/09/shopeemall/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Chaya Chen Yin">
+      <meta itemprop="description" content="RECORD MY LIFE">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chaya's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          基于SpringBoot+Nginx+Redis的电子商城（一）
+        </h1>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-09-09 09:19:18 / 修改时间：10:34:58" itemprop="dateCreated datePublished" datetime="2021-09-09T09:19:18+08:00">2021-09-09</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="/2021/09/09/shopeemall/front.png" alt="front"></p>
+<span id="more"></span>
+
+<h1 id="Readme"><a href="#Readme" class="headerlink" title="Readme"></a>Readme</h1><h2 id="Background-项目背景"><a href="#Background-项目背景" class="headerlink" title="Background 项目背景"></a>Background 项目背景</h2><p><strong>A shopeemall based on SpringBoot + Nginx + Redis</strong></p>
+<p>此网络购物平台系统旨在为用户提供一个简易的具备一些基本功能的购物系统，通过这个系统用户可以轻松的获得自己想要的商品。存在两种类型用户，普通用户和管理员用户。普通用户在这个系统中注册过后进行登陆此时可以对个人资料进行修改，可以修改密码，同时可以在平台中进行自由的选购自己想要的商品，将选购好的商品加入购物车，如果需要修改可以在购物车中更改所需的商品数量，当选择完成过后可以确认购买，也可以让所选物品一直处在购物车中，等待下次登陆时依然有效。管理员用户可以通过管理员账号登陆后对商品进行管理，可以对商品信息进行修改，删除商品，添加新商品。前台不提供管理员用户的注册,直接在后台数据库中添加管理员用户。</p>
+<p>本系统的目标除了提供基本购物功能和用户、订单、商品的相关管理功能之外，为了保证用户的购物体验，我们将采用Redis、Nginx及分布式技术实现服务器搭建，保证商城系统高可用性，并添加商品秒杀功能及实时热销榜功能，与实际电商系统功能贴近。</p>
+<p>This online shopping platform system aims to provide users with a simple shopping system with some basic functions, through which users can easily obtain the goods they want. There are two types of users, ordinary users and administrator users. Ordinary users log in after registering in this system. At this time, they can modify their personal information, modify their passwords, and at the same time, they can freely choose the products they want on the platform, and add the purchased products to the shopping cart. If you need to modify, you can change the required quantity of goods in the shopping cart. After the selection is completed, you can confirm the purchase, or you can keep the selected items in the shopping cart and wait for the next login to be valid. Administrator users can manage products after logging in through the administrator account, modify product information, delete products, and add new products. The front desk does not provide the registration of the administrator user, and directly adds the administrator user in the back-end database.<br>The goal of this system is to provide basic shopping functions and related management functions for users, orders, and commodities. In order to ensure the user’s shopping experience, we will use Redis, Nginx and distributed technologies to implement server construction to ensure the high availability of the mall system, and Add product spike function and real-time hot list function, which is close to the actual e-commerce system function.</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/stonehard0208/shopee-mall-based-on-Springboot-Redis-Nginx">Github</a></p>
+<h2 id="Requirement-Analysis-需求分析"><a href="#Requirement-Analysis-需求分析" class="headerlink" title="Requirement Analysis 需求分析"></a>Requirement Analysis 需求分析</h2><h3 id="需求调查分析"><a href="#需求调查分析" class="headerlink" title="需求调查分析"></a>需求调查分析</h3><p>为了获得相关用户对于购物网站内容、形式、活动、商品等需求，我们设计了一份问卷，从用户网购需求、用户购买商品参考指标、用户年龄、网购主要原因、产生购买意愿原因、退货频率等多角度设计问卷，并面向18岁以上的用户投放问卷，总共获得问卷138份，有效问卷121份，并根据问卷结果分析用户需求，从而设计、改进网站。</p>
+<p>以下为问卷分析结果。</p>
+<p><img src="/2021/09/09/shopeemall/1.jpg" alt="1"></p>
+<p>从用户网购需求饼图来看，生活用品（21%）、服饰（23%）所占比重仅次于其他（42%）之后，说明市场中用户对于服饰、生活用品的需求较高，更具有经济价值，市场空间更大，所以我们在选择商城商品内容时，更加倾向这两种，更具有实际意义。</p>
+<p><img src="/2021/09/09/shopeemall/2.jpg" alt="2"></p>
+<p>从用户购买商品参考指标可以看出，网页页面上最吸引用户的元素是商品图片和网购评论，其次是商品文字描述，所以在设计网站时，我们要给予商家充分的版面展示商品图片，从而激发消费者购买欲望。另外，要构建合理的网购评论、评分机制，强化好评权重，利用用户的从众心理，更容易购买。</p>
+<p><img src="/2021/09/09/shopeemall/3.jpg" alt="3"></p>
+<p>从用户年龄饼图来看，16-24岁（73%）人群占比最高，青少年、中年人占比较低，说明用户主力为青年人，在设计用户界面时，尽量选择明快、活泼的颜色，简洁、大方的字体，生动、功能分明的模块。</p>
+<p><img src="/2021/09/09/shopeemall/4.jpg" alt="4"></p>
+<p>从网购主要原因柱状图来看，方便是用户网购的最主要原因，在设计网站时应该尽量简化搜索、添加购物车、下订单、支付流程，将用户最关心的价格、折扣、款式、订单信息、物流信息显示在最明显的地方，减少用户寻找关键信息的时间。用户网购的第二原因是便宜，因此，我们将具有折扣的商品、销量极高的商品显示在主页上，吸引用户购买。</p>
+<p><img src="/2021/09/09/shopeemall/5.jpg" alt="5"></p>
+<p>从用户产生购买意愿的原因来看，最主要的原因是用户本身存在对商品的需求，因此，在设计网站时，可能考虑到设计商品推荐算法，对用户输入的搜索商品进行同类查找，并推荐至商品首页。第二原因是打折，和网购主要原因分析中一样，我们将具有折扣的商品、销量极高的商品显示在主页上，吸引用户购买。第三原因是商品限量，可以在商品界面上显示限量个数、存量个数，激发用户购买欲。</p>
+<p><img src="/2021/09/09/shopeemall/6.jpg" alt="6"></p>
+<p>从退货频率来看，62%的用户经常退货，因此，构建合理的退货评判机制、退货流程对于吸引回头客至关重要。</p>
+<h3 id="需求获取及描述"><a href="#需求获取及描述" class="headerlink" title="需求获取及描述"></a>需求获取及描述</h3><p>根据以上问卷分析、需求分析，我们完善了中期报告中缺少的部分需求获取、需求描述。</p>
+<p><img src="/2021/09/09/shopeemall/7.png" alt="7"></p>
+<h3 id="参与者及用例确定"><a href="#参与者及用例确定" class="headerlink" title="参与者及用例确定"></a>参与者及用例确定</h3><p>各种用户类确认的“基于SpringBoot+Redis+Nginx的ShopeeMall商城”的主要参与者及其参与的用例如下所示：</p>
+<p><img src="/2021/09/09/shopeemall/8.png" alt="8"></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Chaya Chen Yin
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://stonehard0208.github.io/2021/09/09/shopeemall/" title="基于SpringBoot+Nginx+Redis的电子商城（一）">http://stonehard0208.github.io/2021/09/09/shopeemall/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+
+     
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/21/style-transfer-AI-painting/" rel="prev" title="基于风格迁移的AI绘画大师">
+      <i class="fa fa-chevron-left"></i> 基于风格迁移的AI绘画大师
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  
+        <div>
+           <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        </div>
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Readme"><span class="nav-number">1.</span> <span class="nav-text">Readme</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Background-%E9%A1%B9%E7%9B%AE%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">Background 项目背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Requirement-Analysis-%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="nav-number">1.2.</span> <span class="nav-text">Requirement Analysis 需求分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9C%80%E6%B1%82%E8%B0%83%E6%9F%A5%E5%88%86%E6%9E%90"><span class="nav-number">1.2.1.</span> <span class="nav-text">需求调查分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9C%80%E6%B1%82%E8%8E%B7%E5%8F%96%E5%8F%8A%E6%8F%8F%E8%BF%B0"><span class="nav-number">1.2.2.</span> <span class="nav-text">需求获取及描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E4%B8%8E%E8%80%85%E5%8F%8A%E7%94%A8%E4%BE%8B%E7%A1%AE%E5%AE%9A"><span class="nav-number">1.2.3.</span> <span class="nav-text">参与者及用例确定</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chaya Chen Yin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Chaya Chen Yin</p>
+  <div class="site-description" itemprop="description">RECORD MY LIFE</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/stonehard0208" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stonehard0208" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1696831078@qq.com" title="E-Mail → mailto:1696831078@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021-04 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chaya Chen Yin</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共5.8k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

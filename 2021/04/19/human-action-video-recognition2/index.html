@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"stonehard0208.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="基于深度学习的人体行为视频识别项目 （二）模型训练">
+<meta property="og:url" content="http://stonehard0208.github.io/2021/04/19/human-action-video-recognition2/index.html">
+<meta property="og:site_name" content="Chaya&#39;s blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/19/human-action-video-recognition2/front.jpg">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/19/human-action-video-recognition2/17.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/19/human-action-video-recognition2/18.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/19/human-action-video-recognition2/19.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/19/human-action-video-recognition2/20.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/19/human-action-video-recognition2/21.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/19/human-action-video-recognition2/22.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/19/human-action-video-recognition2/23.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/19/human-action-video-recognition2/24.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/19/human-action-video-recognition2/25.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/19/human-action-video-recognition2/26.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/19/human-action-video-recognition2/27.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/19/human-action-video-recognition2/28.JPG">
+<meta property="article:published_time" content="2021-04-19T13:05:05.000Z">
+<meta property="article:modified_time" content="2021-04-20T09:22:08.687Z">
+<meta property="article:author" content="Chaya Chen Yin">
+<meta property="article:tag" content="Pytorch">
+<meta property="article:tag" content="deep-learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://stonehard0208.github.io/2021/04/19/human-action-video-recognition2/front.jpg">
+
+<link rel="canonical" href="http://stonehard0208.github.io/2021/04/19/human-action-video-recognition2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>基于深度学习的人体行为视频识别项目 （二）模型训练 | Chaya's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Chaya's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://stonehard0208.github.io/2021/04/19/human-action-video-recognition2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Chaya Chen Yin">
+      <meta itemprop="description" content="RECORD MY LIFE">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chaya's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          基于深度学习的人体行为视频识别项目 （二）模型训练
+        </h1>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-04-19 21:05:05" itemprop="dateCreated datePublished" datetime="2021-04-19T21:05:05+08:00">2021-04-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-04-20 17:22:08" itemprop="dateModified" datetime="2021-04-20T17:22:08+08:00">2021-04-20</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="/2021/04/19/human-action-video-recognition2/front.jpg" alt="front"></p>
+<span id="more"></span>
+<h2 id="接上文"><a href="#接上文" class="headerlink" title="接上文"></a>接上文</h2><p><a target="_blank" rel="noopener" href="http://chayacy.top/2021/04/19/human-action-video-recognition/"> 基于深度学习的人体行为视频识别项目 （一）数据处理</a></p>
+<h3 id="Model-Training-模型训练"><a href="#Model-Training-模型训练" class="headerlink" title="Model Training 模型训练"></a>Model Training 模型训练</h3><p><img src="/2021/04/19/human-action-video-recognition2/17.JPG" alt="17"></p>
+<p>使用Pytorch中的DataLoader导入，前面之所以设置那样的文件目录是因为这是DataLoader的要求，详见<a target="_blank" rel="noopener" href="https://pytorch.org/docs/stable/data.html">Pytorch官方文档</a>。</p>
+<p>Resize(299,299)是模型Inception-v3的需要。</p>
+<p>batch_size = 64是我们根据实验获得的最佳超参数，可以根据实际个人配置进行调整。</p>
+<p><img src="/2021/04/19/human-action-video-recognition2/18.JPG" alt="18"></p>
+<!--more-->
+
+<p>在get_model函数中调用inception-v3，并添加两个线性全连接层，添加Dropout和LeakyRelu防止过拟合。<br>这里仅仅做了最简单的修改，Pytorch预训练模型自由度很高，支持屏蔽某些层等更高级的修改。</p>
+<p>最后一个Linear的最后一个参数应该为动作类别的数量，可以通过读取文件夹个数获取，这里直接写101是因为UCF101总共101个动作，偷了个懒XD</p>
+<p>之后的训练过程和图像识别基本一致，这里简单解释，详情可以参照<a target="_blank" rel="noopener" href="https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html">Pytorch官方案例</a>。</p>
+<p><img src="/2021/04/19/human-action-video-recognition2/19.JPG" alt="19"></p>
+<p>定义模型，device，optimizer等，optimizer类型和learning_rate均可以修改。</p>
+<p><img src="/2021/04/19/human-action-video-recognition2/20.JPG" alt="20"></p>
+<p>训练阶段，注释部分可以保存模型state，中途停止后可以读取State继续运行。</p>
+<p><img src="/2021/04/19/human-action-video-recognition2/21.JPG" alt="21"></p>
+<p>上面这张图片读取了state，这样我们一旦停止训练，下一次无需从Epoch=1开始，state中已经保存了相关参数。</p>
+<p><img src="/2021/04/19/human-action-video-recognition2/22.JPG" alt="22"></p>
+<p>验证部分。<br>实际上真正过程中应该分为Training,Testing,和Validation，但是由于UCF101官方给的文件仅区分了training和testing，且作者做这个项目的时候对于深度学习不甚了解，所以本项目中没有区分testing和validation。</p>
+<p>至此，训练和验证部分结束，每一个Epoch我们均保存了参数，挑选最佳参数读取即可。接下来将进入软件开发部分。</p>
+<hr>
+<p>前端部分参照各大Qt教程即可，这里简单写一下如何使用我们训练获得的参数，如何用来识别自己录制的视频。</p>
+<p>首先，我们需要保存get_model()中的模型，并命名为model.pkl。<br>并按照一下文件目录放置文件。Epoch7model.pth为我们保存的一个state，要识别视频，请将测试用的视频文件夹中【一个】视频复制到inputvideo文件夹中。</p>
+<p><img src="/2021/04/19/human-action-video-recognition2/23.JPG" alt="23"></p>
+<p><img src="/2021/04/19/human-action-video-recognition2/24.JPG" alt="24"></p>
+<p>基本操作，定义transform，device,path</p>
+<p><img src="/2021/04/19/human-action-video-recognition2/25.JPG" alt="25"></p>
+<p>move_video和convert和前面基本一致，都是为了移动视频并转换为图片。</p>
+<p><img src="/2021/04/19/human-action-video-recognition2/26.JPG" alt="26"><br>获取视频名称</p>
+<p><img src="/2021/04/19/human-action-video-recognition2/27.JPG" alt="27"></p>
+<p>读取参数导入model。<br>preds为列表，第一项为可能性最高的动作编号，如ApplyEyeMakeup的编号为0，若该动作最有可能是ApplyEyeMakeup，则preds[0]=0，从classes中获取classes[0] = ApplyEyeMakeup</p>
+<p><img src="/2021/04/19/human-action-video-recognition2/28.JPG" alt="28"></p>
+<p>为了下一次识别的需要，在识别后需要将inputvideo和result中的视频图片删除。</p>
+<hr>
+<p>本项目代码解读就此结束，获得的识别准确率、训练测试准确率、loss等数据由于论文尚未发表，暂时不公布。之后会来除个草。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Chaya Chen Yin
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://stonehard0208.github.io/2021/04/19/human-action-video-recognition2/" title="基于深度学习的人体行为视频识别项目 （二）模型训练">http://stonehard0208.github.io/2021/04/19/human-action-video-recognition2/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+
+     
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Pytorch/" rel="tag"># Pytorch</a>
+              <a href="/tags/deep-learning/" rel="tag"># deep-learning</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/18/WelcomeToMyBlog/" rel="prev" title="Welcome To Chaya's Blog">
+      <i class="fa fa-chevron-left"></i> Welcome To Chaya's Blog
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/19/human-action-video-recognition/" rel="next" title="基于深度学习的人体行为视频识别项目 （一）数据处理">
+      基于深度学习的人体行为视频识别项目 （一）数据处理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  
+        <div>
+           <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        </div>
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E4%B8%8A%E6%96%87"><span class="nav-number">1.</span> <span class="nav-text">接上文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Model-Training-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83"><span class="nav-number">1.1.</span> <span class="nav-text">Model Training 模型训练</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chaya Chen Yin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Chaya Chen Yin</p>
+  <div class="site-description" itemprop="description">RECORD MY LIFE</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/stonehard0208" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stonehard0208" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1696831078@qq.com" title="E-Mail → mailto:1696831078@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021-04 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chaya Chen Yin</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共5.8k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

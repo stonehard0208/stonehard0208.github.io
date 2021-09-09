@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"stonehard0208.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="基于风格迁移的AI绘画大师">
+<meta property="og:url" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/index.html">
+<meta property="og:site_name" content="Chaya&#39;s blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/front.jpeg">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/1.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/2.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/3.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/4.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/5.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/6.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/17.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/18.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/19.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/20.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/21.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/22.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/23.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/24.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/25.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/8.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/9.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/10.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/11.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/12.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/13.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/14.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/16.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/15.JPG">
+<meta property="article:published_time" content="2021-04-21T11:05:29.000Z">
+<meta property="article:modified_time" content="2021-04-21T11:14:16.649Z">
+<meta property="article:author" content="Chaya Chen Yin">
+<meta property="article:tag" content="Pytorch">
+<meta property="article:tag" content="style-transfer">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/front.jpeg">
+
+<link rel="canonical" href="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>基于风格迁移的AI绘画大师 | Chaya's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Chaya's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Chaya Chen Yin">
+      <meta itemprop="description" content="RECORD MY LIFE">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chaya's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          基于风格迁移的AI绘画大师
+        </h1>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-04-21 19:05:29 / 修改时间：19:14:16" itemprop="dateCreated datePublished" datetime="2021-04-21T19:05:29+08:00">2021-04-21</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="/2021/04/21/style-transfer-AI-painting/front.jpeg" alt="front"></p>
+<span id="more"></span>
+<h1 id="Readme"><a href="#Readme" class="headerlink" title="Readme"></a>Readme</h1><h2 id="Background-项目背景"><a href="#Background-项目背景" class="headerlink" title="Background 项目背景"></a>Background 项目背景</h2><p>This project is an AI painting master based on the Pytorch framework and style transfer technology. It mainly refers to the <a target="_blank" rel="noopener" href="https://www.pytorchtutorial.com/pytorch-style-transfer/">Pytorch tutorial</a> and the paper <a target="_blank" rel="noopener" href="https://arxiv.org/abs/1508.06576">A Neural Algorithm of Artistic Style</a>.<br>In addition, compared to the original thesis tutorial, we have made certain modifications to the model structure to make the visual effect better.</p>
+<p>本项目是基于Pytorch框架，风格迁移技术的AI绘画大师，主要参考了Pytorch官方tutorial中的<a target="_blank" rel="noopener" href="https://www.pytorchtutorial.com/pytorch-style-transfer/">教程</a>和论文<a target="_blank" rel="noopener" href="https://arxiv.org/abs/1508.06576">A Neural Algorithm of Artistic Style</a>。<br>另外，相比于原论文教程，我们在模型结构上做出了一定的修改，使得视觉效果更好。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/stonehard0208/Style-transfer-AI-painting">Github</a></p>
+<h2 id="Preview-效果预览"><a href="#Preview-效果预览" class="headerlink" title="Preview 效果预览"></a>Preview 效果预览</h2><p><img src="/2021/04/21/style-transfer-AI-painting/1.JPG" alt="1"><br><img src="/2021/04/21/style-transfer-AI-painting/2.JPG" alt="2"><br><img src="/2021/04/21/style-transfer-AI-painting/3.JPG" alt="3"><br><img src="/2021/04/21/style-transfer-AI-painting/4.JPG" alt="4"><br><img src="/2021/04/21/style-transfer-AI-painting/5.JPG" alt="5"><br><img src="/2021/04/21/style-transfer-AI-painting/6.JPG" alt="6"></p>
+<h2 id="Innovation-创新点"><a href="#Innovation-创新点" class="headerlink" title="Innovation 创新点"></a>Innovation 创新点</h2><h3 id="1-Modify-the-content-layer-修改内容层"><a href="#1-Modify-the-content-layer-修改内容层" class="headerlink" title="1. Modify the content layer 修改内容层"></a>1. Modify the content layer 修改内容层</h3><p>The original paper used conv_4 as the content layer. We used conv_4, conv_5, conv_6, and conv_7 as the content layer. Although it is not reflected in the data result, it has a better visual effect.</p>
+<p>原论文以conv_4作为内容曾，我们将conv_4,conv_5,conv_6,conv_7作为内容层，虽然在数据上体现不大，但是在肉眼可见的视觉方面效果更好。</p>
+<p><img src="/2021/04/21/style-transfer-AI-painting/17.JPG" alt="1"><br><img src="/2021/04/21/style-transfer-AI-painting/18.JPG" alt="1"><br><img src="/2021/04/21/style-transfer-AI-painting/19.JPG" alt="1"></p>
+<p>It can be clearly found that choosing conv_4, conv_5, conv_6, and conv_7 as the content layer, the overall style of the image does not change much, but the details are clearer.</p>
+<p>可以明显发现，选用conv_4,conv_5,conv_6,conv_7作为内容层，图像整体风格变化不大，但是细节方面更加清晰。</p>
+<h3 id="2-Modify-the-Optimizer-修改优化器"><a href="#2-Modify-the-Optimizer-修改优化器" class="headerlink" title="2. Modify the Optimizer 修改优化器"></a>2. Modify the Optimizer 修改优化器</h3><p>The original paper used L-BFGS as the optimizer. In the actual operation, we found that it was slower and completely changed the color of the original image and modified it to the Adam optimizer.</p>
+<p>原论文使用L-BFGS作为优化器，在实际运行过程中，我们发现其速度较慢，且完全改变了原图的颜色，修改为Adam优化器。</p>
+<p><img src="/2021/04/21/style-transfer-AI-painting/20.JPG" alt="1"><br><img src="/2021/04/21/style-transfer-AI-painting/21.JPG" alt="1"></p>
+<h3 id="3-Modify-the-loss-function-修改损失函数"><a href="#3-Modify-the-loss-function-修改损失函数" class="headerlink" title="3. Modify the loss function 修改损失函数"></a>3. Modify the loss function 修改损失函数</h3><p>The original paper uses MSE_LOSS for calculation. After consulting many documents, we found that in the style transfer project, the effect of L1_loss may be better than L2_loss (MSE_loss), so we tried.</p>
+<p>原文中使用MSE_LOSS用于计算，我们在查阅许多资料文献后发现，在风格迁移这个项目中，L1_loss的效果可能比L2_loss（MSE_loss）效果更好，故进行了尝试。</p>
+<p><img src="/2021/04/21/style-transfer-AI-painting/22.JPG" alt="1"></p>
+<p>Obviously, looking at the picture, it can be seen that L1_Loss is not sensitive to outliers, and when we perform style transfer, we do not need to completely integrate the features of the style picture with the content picture. In many cases, keeping some of the content picture features is more effective, so we hope to keep some outliers.</p>
+<p>显然，看图可以得知，L1_Loss对于离群点并不敏感，而我们在进行风格迁移的时候，并不需要完全将风格图片的特征与内容图片融合，很多时候保留部分内容图片特征反而效果更好，所以希望保留一些离群点。</p>
+<p><img src="/2021/04/21/style-transfer-AI-painting/23.JPG" alt="1"></p>
+<p>效果如图</p>
+<p><img src="/2021/04/21/style-transfer-AI-painting/24.JPG" alt="1"><br><img src="/2021/04/21/style-transfer-AI-painting/25.JPG" alt="1"></p>
+<h2 id="Code-代码解读"><a href="#Code-代码解读" class="headerlink" title="Code 代码解读"></a>Code 代码解读</h2><p><img src="/2021/04/21/style-transfer-AI-painting/8.JPG" alt="1"></p>
+<p>导入图片</p>
+<p><img src="/2021/04/21/style-transfer-AI-painting/9.JPG" alt="2"></p>
+<p>修改图片大小，风格迁移算法要求两张图片大小一致</p>
+<p><img src="/2021/04/21/style-transfer-AI-painting/10.JPG" alt="3"></p>
+<p>计算内容差异</p>
+<p><img src="/2021/04/21/style-transfer-AI-painting/11.JPG" alt="4"></p>
+<p>计算风格差异</p>
+<p><img src="/2021/04/21/style-transfer-AI-painting/12.JPG" alt="5"></p>
+<p>设定gram矩阵</p>
+<p><img src="/2021/04/21/style-transfer-AI-painting/13.JPG" alt="6"></p>
+<p>Normalizing</p>
+<p><img src="/2021/04/21/style-transfer-AI-painting/14.JPG" alt="6"></p>
+<p>此处设定对于实现的图像细节视觉效果来说非常重要，相比于原论文，我们这里做了修改，使得视觉效果更好。</p>
+<p><img src="/2021/04/21/style-transfer-AI-painting/16.JPG" alt="6"><br><img src="/2021/04/21/style-transfer-AI-painting/15.JPG" alt="6"></p>
+<p>训练模型</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Chaya Chen Yin
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/" title="基于风格迁移的AI绘画大师">http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+
+     
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Pytorch/" rel="tag"># Pytorch</a>
+              <a href="/tags/style-transfer/" rel="tag"># style-transfer</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/21/notebook-with-weatherforcast2/" rel="prev" title="安卓开发：具有天气预报功能的记事本APP （二）天气预报">
+      <i class="fa fa-chevron-left"></i> 安卓开发：具有天气预报功能的记事本APP （二）天气预报
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/09/09/shopeemall/" rel="next" title="基于SpringBoot+Nginx+Redis的电子商城（一）">
+      基于SpringBoot+Nginx+Redis的电子商城（一） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  
+        <div>
+           <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        </div>
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Readme"><span class="nav-number">1.</span> <span class="nav-text">Readme</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Background-%E9%A1%B9%E7%9B%AE%E8%83%8C%E6%99%AF"><span class="nav-number">1.1.</span> <span class="nav-text">Background 项目背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Preview-%E6%95%88%E6%9E%9C%E9%A2%84%E8%A7%88"><span class="nav-number">1.2.</span> <span class="nav-text">Preview 效果预览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Innovation-%E5%88%9B%E6%96%B0%E7%82%B9"><span class="nav-number">1.3.</span> <span class="nav-text">Innovation 创新点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Modify-the-content-layer-%E4%BF%AE%E6%94%B9%E5%86%85%E5%AE%B9%E5%B1%82"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. Modify the content layer 修改内容层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Modify-the-Optimizer-%E4%BF%AE%E6%94%B9%E4%BC%98%E5%8C%96%E5%99%A8"><span class="nav-number">1.3.2.</span> <span class="nav-text">2. Modify the Optimizer 修改优化器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Modify-the-loss-function-%E4%BF%AE%E6%94%B9%E6%8D%9F%E5%A4%B1%E5%87%BD%E6%95%B0"><span class="nav-number">1.3.3.</span> <span class="nav-text">3. Modify the loss function 修改损失函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Code-%E4%BB%A3%E7%A0%81%E8%A7%A3%E8%AF%BB"><span class="nav-number">1.4.</span> <span class="nav-text">Code 代码解读</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chaya Chen Yin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Chaya Chen Yin</p>
+  <div class="site-description" itemprop="description">RECORD MY LIFE</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/stonehard0208" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stonehard0208" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1696831078@qq.com" title="E-Mail → mailto:1696831078@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021-04 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chaya Chen Yin</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共5.8k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
