@@ -22,30 +22,64 @@
     var CONFIG = {"hostname":"stonehard0208.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="RECORD MY LIFE">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Chaya&#39;s blog">
-<meta property="og:url" content="http://stonehard0208.github.io/index.html">
+  <meta name="description" content="基于SpringBoot+Nginx+Redis的电子商城（二）Feasibility analysis 可行性分析Technical feasibility 技术可行性（1）开发平台本文系统开发使用IDEA作为后端开发工具，VSCode作为前端开发工具。IDEA作为新生代Java开发工具，非常适合开发人员操作，其友好界面以及Debug功能为用户极大地减轻开发压力。此外，本项目采用Springbo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于SpringBoot+Nginx+Redis的电子商城（一）">
+<meta property="og:url" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/index.html">
 <meta property="og:site_name" content="Chaya&#39;s blog">
-<meta property="og:description" content="RECORD MY LIFE">
+<meta property="og:description" content="基于SpringBoot+Nginx+Redis的电子商城（二）Feasibility analysis 可行性分析Technical feasibility 技术可行性（1）开发平台本文系统开发使用IDEA作为后端开发工具，VSCode作为前端开发工具。IDEA作为新生代Java开发工具，非常适合开发人员操作，其友好界面以及Debug功能为用户极大地减轻开发压力。此外，本项目采用Springbo">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/1.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/2.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/3.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/4.jpg">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/5.jpg">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/6.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/7.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/8.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/9.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/10.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/11.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/12.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/13.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/14.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/15.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/16.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/17.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/18.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/19.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/20.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/21.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/22.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/23.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/24.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/25.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/26.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/27.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/28.png">
+<meta property="article:published_time" content="2021-09-09T01:19:18.000Z">
+<meta property="article:modified_time" content="2021-09-09T10:59:46.460Z">
 <meta property="article:author" content="Chaya Chen Yin">
+<meta property="article:tag" content="SpringBoot">
+<meta property="article:tag" content="Nginx">
+<meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://stonehard0208.github.io/2021/09/09/shopeemall2/1.png">
 
-<link rel="canonical" href="http://stonehard0208.github.io/">
+<link rel="canonical" href="http://stonehard0208.github.io/2021/09/09/shopeemall2/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>Chaya's blog</title>
+  <title>基于SpringBoot+Nginx+Redis的电子商城（一） | Chaya's blog</title>
   
 
 
@@ -187,157 +221,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://stonehard0208.github.io/2021/04/18/WelcomeToMyBlog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Chaya Chen Yin">
-      <meta itemprop="description" content="RECORD MY LIFE">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chaya's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/18/WelcomeToMyBlog/" class="post-title-link" itemprop="url">Welcome To Chaya's Blog</a>
-        </h2>
-
-        <div class="post-meta">
-          
-            <i class="fa fa-thumb-tack"></i>
-            <font color=7D26CD>置顶</font>
-            <span class="post-meta-divider">|</span>
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-04-18 11:30:06" itemprop="dateCreated datePublished" datetime="2021-04-18T11:30:06+08:00">2021-04-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-20 17:18:18" itemprop="dateModified" datetime="2021-04-20T17:18:18+08:00">2021-04-20</time>
-              </span>
-
-          
-
-        </div>
-      </header>
 
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="/2021/04/18/WelcomeToMyBlog/1.jpeg" alt="1"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/04/18/WelcomeToMyBlog/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://stonehard0208.github.io/2021/09/09/shopeemall/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Chaya Chen Yin">
-      <meta itemprop="description" content="RECORD MY LIFE">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chaya's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/09/09/shopeemall/" class="post-title-link" itemprop="url">基于SpringBoot+Nginx+Redis的电子商城（一）</a>
-        </h2>
-
-        <div class="post-meta">
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-09-09 09:19:18 / 修改时间：16:58:53" itemprop="dateCreated datePublished" datetime="2021-09-09T09:19:18+08:00">2021-09-09</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="/2021/09/09/shopeemall/front.png" alt="front"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/09/09/shopeemall/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-  
-
-      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -353,10 +240,9 @@
       <meta itemprop="name" content="Chaya's blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/09/09/shopeemall2/" class="post-title-link" itemprop="url">基于SpringBoot+Nginx+Redis的电子商城（一）</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          基于SpringBoot+Nginx+Redis的电子商城（一）
+        </h1>
 
         <div class="post-meta">
           
@@ -381,7 +267,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="基于SpringBoot-Nginx-Redis的电子商城（二）"><a href="#基于SpringBoot-Nginx-Redis的电子商城（二）" class="headerlink" title="基于SpringBoot+Nginx+Redis的电子商城（二）"></a>基于SpringBoot+Nginx+Redis的电子商城（二）</h1><h2 id="Feasibility-analysis-可行性分析"><a href="#Feasibility-analysis-可行性分析" class="headerlink" title="Feasibility analysis 可行性分析"></a>Feasibility analysis 可行性分析</h2><h3 id="Technical-feasibility-技术可行性"><a href="#Technical-feasibility-技术可行性" class="headerlink" title="Technical feasibility 技术可行性"></a>Technical feasibility 技术可行性</h3><h4 id="（1）开发平台"><a href="#（1）开发平台" class="headerlink" title="（1）开发平台"></a>（1）开发平台</h4><p>本文系统开发使用IDEA作为后端开发工具，VSCode作为前端开发工具。IDEA作为新生代Java开发工具，非常适合开发人员操作，其友好界面以及Debug功能为用户极大地减轻开发压力。此外，本项目采用Springboot框架，POM依赖导入Jar包的时候也非常清晰简便，适合开发人员。VSCode开发工具近年来也受到一致好评，安装插件非常容易。</p>
+        <h1 id="基于SpringBoot-Nginx-Redis的电子商城（二）"><a href="#基于SpringBoot-Nginx-Redis的电子商城（二）" class="headerlink" title="基于SpringBoot+Nginx+Redis的电子商城（二）"></a>基于SpringBoot+Nginx+Redis的电子商城（二）</h1><h2 id="Feasibility-analysis-可行性分析"><a href="#Feasibility-analysis-可行性分析" class="headerlink" title="Feasibility analysis 可行性分析"></a>Feasibility analysis 可行性分析</h2><h3 id="Technical-feasibility-技术可行性"><a href="#Technical-feasibility-技术可行性" class="headerlink" title="Technical feasibility 技术可行性"></a>Technical feasibility 技术可行性</h3><h4 id="（1）开发平台"><a href="#（1）开发平台" class="headerlink" title="（1）开发平台"></a>（1）开发平台</h4><p>本文系统开发使用IDEA作为后端开发工具，VSCode作为前端开发工具。IDEA作为新生代Java开发工具，非常适合开发人员操作，其友好界面以及Debug功能为用户极大地减轻开发压力。此外，本项目采用Springboot框架，POM依赖导入Jar包的时候也非常清晰简便，适合开发人员。VSCode开发工具近年来也受到一致好评，安装插件非常容易。</p>
 <h4 id="（2）云端选择"><a href="#（2）云端选择" class="headerlink" title="（2）云端选择"></a>（2）云端选择</h4><p>本项目最终部署到云服务器当中，供用户远端访问。</p>
 <h3 id="Organizational-feasibility-组织可行性"><a href="#Organizational-feasibility-组织可行性" class="headerlink" title="Organizational feasibility 组织可行性"></a>Organizational feasibility 组织可行性</h3><h4 id="（1）经验丰富的开发人员和指导教师"><a href="#（1）经验丰富的开发人员和指导教师" class="headerlink" title="（1）经验丰富的开发人员和指导教师"></a>（1）经验丰富的开发人员和指导教师</h4><p>本文系统的开发人员为5个软件学院18级学生，选择该系统为高级软件设计项目，在本学院就读三年中拥有良好的程序设计和开发基础，熟悉Web前端及后端开发，在有关前后端开发的课程上取得优异的成绩。本系统的指导老师为大型数据库、JavaWeb课程的任教老师，具有深厚的任教经历和开发经验，使该系统的开发具备较高的可行性。</p>
 <h4 id="（2）合理的项目实施计划和进度安排"><a href="#（2）合理的项目实施计划和进度安排" class="headerlink" title="（2）合理的项目实施计划和进度安排"></a>（2）合理的项目实施计划和进度安排</h4><p>本文系统为学生的高级软件设计，因此在项目实施进度上有严格的保证，对项目前期需求分析和系统设计、中期程序编码和后期软件测试和论文形成均有严格的时间线进行约束和管理，具备完整的项目实施进度计划，保证项目顺利按时进行。</p>
@@ -422,380 +308,68 @@
 <p><img src="/2021/09/09/shopeemall2/27.png" alt="7"></p>
 <p><img src="/2021/09/09/shopeemall2/28.png" alt="7"></p>
 
-      
     </div>
 
     
     
     
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://stonehard0208.github.io/2021/04/21/style-transfer-AI-painting/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Chaya Chen Yin">
-      <meta itemprop="description" content="RECORD MY LIFE">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chaya's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/21/style-transfer-AI-painting/" class="post-title-link" itemprop="url">基于风格迁移的AI绘画大师</a>
-        </h2>
-
-        <div class="post-meta">
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-04-21 19:05:29 / 修改时间：19:14:16" itemprop="dateCreated datePublished" datetime="2021-04-21T19:05:29+08:00">2021-04-21</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="/2021/04/21/style-transfer-AI-painting/front.jpeg" alt="front"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/04/21/style-transfer-AI-painting/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Chaya Chen Yin
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://stonehard0208.github.io/2021/09/09/shopeemall2/" title="基于SpringBoot+Nginx+Redis的电子商城（一）">http://stonehard0208.github.io/2021/09/09/shopeemall2/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+
+     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/SpringBoot/" rel="tag"># SpringBoot</a>
+              <a href="/tags/Nginx/" rel="tag"># Nginx</a>
+              <a href="/tags/Redis/" rel="tag"># Redis</a>
+          </div>
 
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Chaya Chen Yin">
-      <meta itemprop="description" content="RECORD MY LIFE">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chaya's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/21/notebook-with-weatherforcast2/" class="post-title-link" itemprop="url">安卓开发：具有天气预报功能的记事本APP （二）天气预报</a>
-        </h2>
-
-        <div class="post-meta">
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-04-21 10:16:05 / 修改时间：10:22:36" itemprop="dateCreated datePublished" datetime="2021-04-21T10:16:05+08:00">2021-04-21</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="/2021/04/21/notebook-with-weatherforcast2/1.png" alt="1"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/04/21/notebook-with-weatherforcast2/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://stonehard0208.github.io/2021/04/21/notebook-with-weatherforcast/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Chaya Chen Yin">
-      <meta itemprop="description" content="RECORD MY LIFE">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chaya's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/21/notebook-with-weatherforcast/" class="post-title-link" itemprop="url">安卓开发：具有天气预报功能的记事本APP （一）记事本</a>
-        </h2>
-
-        <div class="post-meta">
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-04-21 10:05:36 / 修改时间：10:22:11" itemprop="dateCreated datePublished" datetime="2021-04-21T10:05:36+08:00">2021-04-21</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="/2021/04/21/notebook-with-weatherforcast/1.jpg" alt="1"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/04/21/notebook-with-weatherforcast/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/21/style-transfer-AI-painting/" rel="prev" title="基于风格迁移的AI绘画大师">
+      <i class="fa fa-chevron-left"></i> 基于风格迁移的AI绘画大师
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/09/09/shopeemall/" rel="next" title="基于SpringBoot+Nginx+Redis的电子商城（一）">
+      基于SpringBoot+Nginx+Redis的电子商城（一） <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
   
 
   
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://stonehard0208.github.io/2021/04/19/human-action-video-recognition/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Chaya Chen Yin">
-      <meta itemprop="description" content="RECORD MY LIFE">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chaya's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/19/human-action-video-recognition/" class="post-title-link" itemprop="url">基于深度学习的人体行为视频识别项目 （一）数据处理</a>
-        </h2>
-
-        <div class="post-meta">
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-04-19 21:05:05" itemprop="dateCreated datePublished" datetime="2021-04-19T21:05:05+08:00">2021-04-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-20 17:21:20" itemprop="dateModified" datetime="2021-04-20T17:21:20+08:00">2021-04-20</time>
-              </span>
-
-          
-
+        <div>
+           <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
         </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="/2021/04/19/human-action-video-recognition/front.png" alt="front"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/04/19/human-action-video-recognition/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://stonehard0208.github.io/2021/04/19/human-action-video-recognition2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Chaya Chen Yin">
-      <meta itemprop="description" content="RECORD MY LIFE">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Chaya's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/04/19/human-action-video-recognition2/" class="post-title-link" itemprop="url">基于深度学习的人体行为视频识别项目 （二）模型训练</a>
-        </h2>
-
-        <div class="post-meta">
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-04-19 21:05:05" itemprop="dateCreated datePublished" datetime="2021-04-19T21:05:05+08:00">2021-04-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-04-20 17:22:08" itemprop="dateModified" datetime="2021-04-20T17:22:08+08:00">2021-04-20</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="/2021/04/19/human-action-video-recognition2/front.jpg" alt="front"></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2021/04/19/human-action-video-recognition2/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-  
-
-
   
 
 
@@ -848,6 +422,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8ESpringBoot-Nginx-Redis%E7%9A%84%E7%94%B5%E5%AD%90%E5%95%86%E5%9F%8E%EF%BC%88%E4%BA%8C%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">基于SpringBoot+Nginx+Redis的电子商城（二）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Feasibility-analysis-%E5%8F%AF%E8%A1%8C%E6%80%A7%E5%88%86%E6%9E%90"><span class="nav-number">1.1.</span> <span class="nav-text">Feasibility analysis 可行性分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Technical-feasibility-%E6%8A%80%E6%9C%AF%E5%8F%AF%E8%A1%8C%E6%80%A7"><span class="nav-number">1.1.1.</span> <span class="nav-text">Technical feasibility 技术可行性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E5%BC%80%E5%8F%91%E5%B9%B3%E5%8F%B0"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">（1）开发平台</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E4%BA%91%E7%AB%AF%E9%80%89%E6%8B%A9"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">（2）云端选择</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Organizational-feasibility-%E7%BB%84%E7%BB%87%E5%8F%AF%E8%A1%8C%E6%80%A7"><span class="nav-number">1.1.2.</span> <span class="nav-text">Organizational feasibility 组织可行性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E7%BB%8F%E9%AA%8C%E4%B8%B0%E5%AF%8C%E7%9A%84%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E5%92%8C%E6%8C%87%E5%AF%BC%E6%95%99%E5%B8%88"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">（1）经验丰富的开发人员和指导教师</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E5%90%88%E7%90%86%E7%9A%84%E9%A1%B9%E7%9B%AE%E5%AE%9E%E6%96%BD%E8%AE%A1%E5%88%92%E5%92%8C%E8%BF%9B%E5%BA%A6%E5%AE%89%E6%8E%92"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">（2）合理的项目实施计划和进度安排</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Economic-feasibility-%E7%BB%8F%E6%B5%8E%E5%8F%AF%E8%A1%8C%E6%80%A7"><span class="nav-number">1.1.3.</span> <span class="nav-text">Economic feasibility 经济可行性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%881%EF%BC%89%E9%A1%B9%E7%9B%AE%E5%AF%B9%E7%94%B5%E5%95%86%E7%AE%A1%E7%90%86%E7%9A%84%E4%BB%B7%E5%80%BC"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">（1）项目对电商管理的价值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%EF%BC%882%EF%BC%89%E9%A1%B9%E7%9B%AE%E5%BC%80%E9%94%80%E5%8F%8A%E6%94%B6%E7%9B%8A"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">（2）项目开销及收益</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Project-designing-%E9%A1%B9%E7%9B%AE%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.2.</span> <span class="nav-text">Project designing 项目设计</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E8%A6%81%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.2.1.</span> <span class="nav-text">概要设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%8A%80%E6%9C%AF%E3%80%81%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">使用技术、开发环境</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">系统部署设计</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E5%8F%8A%E6%A8%A1%E5%9D%97%E5%88%86%E6%9E%90"><span class="nav-number">1.2.2.</span> <span class="nav-text">系统及模块分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B3%BB%E7%BB%9F%E6%95%B4%E4%BD%93%E5%88%86%E6%9E%90"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">系统整体分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%99%BB%E5%BD%95%E6%B3%A8%E5%86%8C%E6%A8%A1%E5%9D%97%E5%88%86%E6%9E%90"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">登录注册模块分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%95%86%E5%93%81%E6%B5%8F%E8%A7%88%E6%A8%A1%E5%9D%97%E5%88%86%E6%9E%90"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">商品浏览模块分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%A2%E5%8D%95%E7%AE%A1%E7%90%86%E6%A8%A1%E5%9D%97%E5%88%86%E6%9E%90"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">订单管理模块分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.2.3.</span> <span class="nav-text">功能设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%89%8D%E5%8F%B0%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E5%8A%9F%E8%83%BD%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">前台普通用户功能设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86%E5%91%98%E5%8A%9F%E8%83%BD%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">后台管理员功能设计</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.2.4.</span> <span class="nav-text">详细设计</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">数据库设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E6%A6%82%E5%BF%B5%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">数据库概念设计</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E9%80%BB%E8%BE%91%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">数据库逻辑设计</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
