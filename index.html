@@ -365,10 +365,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-09-09 09:19:18 / 修改时间：18:59:46" itemprop="dateCreated datePublished" datetime="2021-09-09T09:19:18+08:00">2021-09-09</time>
+              <time title="创建时间：2021-09-09 09:19:18" itemprop="dateCreated datePublished" datetime="2021-09-09T09:19:18+08:00">2021-09-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-09-10 17:10:19" itemprop="dateModified" datetime="2021-09-10T17:10:19+08:00">2021-09-10</time>
+              </span>
 
           
 
@@ -381,47 +387,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="基于SpringBoot-Nginx-Redis的电子商城（二）"><a href="#基于SpringBoot-Nginx-Redis的电子商城（二）" class="headerlink" title="基于SpringBoot+Nginx+Redis的电子商城（二）"></a>基于SpringBoot+Nginx+Redis的电子商城（二）</h1><h2 id="Feasibility-analysis-可行性分析"><a href="#Feasibility-analysis-可行性分析" class="headerlink" title="Feasibility analysis 可行性分析"></a>Feasibility analysis 可行性分析</h2><h3 id="Technical-feasibility-技术可行性"><a href="#Technical-feasibility-技术可行性" class="headerlink" title="Technical feasibility 技术可行性"></a>Technical feasibility 技术可行性</h3><h4 id="（1）开发平台"><a href="#（1）开发平台" class="headerlink" title="（1）开发平台"></a>（1）开发平台</h4><p>本文系统开发使用IDEA作为后端开发工具，VSCode作为前端开发工具。IDEA作为新生代Java开发工具，非常适合开发人员操作，其友好界面以及Debug功能为用户极大地减轻开发压力。此外，本项目采用Springboot框架，POM依赖导入Jar包的时候也非常清晰简便，适合开发人员。VSCode开发工具近年来也受到一致好评，安装插件非常容易。</p>
-<h4 id="（2）云端选择"><a href="#（2）云端选择" class="headerlink" title="（2）云端选择"></a>（2）云端选择</h4><p>本项目最终部署到云服务器当中，供用户远端访问。</p>
-<h3 id="Organizational-feasibility-组织可行性"><a href="#Organizational-feasibility-组织可行性" class="headerlink" title="Organizational feasibility 组织可行性"></a>Organizational feasibility 组织可行性</h3><h4 id="（1）经验丰富的开发人员和指导教师"><a href="#（1）经验丰富的开发人员和指导教师" class="headerlink" title="（1）经验丰富的开发人员和指导教师"></a>（1）经验丰富的开发人员和指导教师</h4><p>本文系统的开发人员为5个软件学院18级学生，选择该系统为高级软件设计项目，在本学院就读三年中拥有良好的程序设计和开发基础，熟悉Web前端及后端开发，在有关前后端开发的课程上取得优异的成绩。本系统的指导老师为大型数据库、JavaWeb课程的任教老师，具有深厚的任教经历和开发经验，使该系统的开发具备较高的可行性。</p>
-<h4 id="（2）合理的项目实施计划和进度安排"><a href="#（2）合理的项目实施计划和进度安排" class="headerlink" title="（2）合理的项目实施计划和进度安排"></a>（2）合理的项目实施计划和进度安排</h4><p>本文系统为学生的高级软件设计，因此在项目实施进度上有严格的保证，对项目前期需求分析和系统设计、中期程序编码和后期软件测试和论文形成均有严格的时间线进行约束和管理，具备完整的项目实施进度计划，保证项目顺利按时进行。</p>
-<h3 id="Economic-feasibility-经济可行性"><a href="#Economic-feasibility-经济可行性" class="headerlink" title="Economic feasibility 经济可行性"></a>Economic feasibility 经济可行性</h3><h4 id="（1）项目对电商管理的价值"><a href="#（1）项目对电商管理的价值" class="headerlink" title="（1）项目对电商管理的价值"></a>（1）项目对电商管理的价值</h4><p>近年来电商行业非常火爆，电商对传统买卖交易进行了赋能，让更远的商品都能够抵达用户的手上，并且这个过程中将会减少很多中间差价，让卖家以最低的成本销售，让买家以最低的成本购入，这个过程是实惠了买卖双方，并且卖家不需要实体店就可以销售，极大减轻压力。</p>
-<h4 id="（2）项目开销及收益"><a href="#（2）项目开销及收益" class="headerlink" title="（2）项目开销及收益"></a>（2）项目开销及收益</h4><p>本项目开发仅需租赁云服务器作为必要工具，其他工具都由项目成员自带，因此开发过程中的开销不大，而电商网站带来的效益非常之大。此外，本项目还有广告栏目，出售广告宣传位也可以为项目成员带来一定的收益。因此从经济的可行性分析来看是没问题的。</p>
-<h2 id="Project-designing-项目设计"><a href="#Project-designing-项目设计" class="headerlink" title="Project designing 项目设计"></a>Project designing 项目设计</h2><h3 id="概要设计"><a href="#概要设计" class="headerlink" title="概要设计"></a>概要设计</h3><h4 id="使用技术、开发环境"><a href="#使用技术、开发环境" class="headerlink" title="使用技术、开发环境"></a>使用技术、开发环境</h4><p>在本次项目开发中，我们所应用到与高级实作课程教学相关的技术及其在本项目的作用介绍如下（部分基础、必不可少的技术暂不介绍）：</p>
-<p><img src="/2021/09/09/shopeemall2/1.png" alt="1"></p>
-<p><img src="/2021/09/09/shopeemall2/2.png" alt="2"></p>
-<h4 id="系统部署设计"><a href="#系统部署设计" class="headerlink" title="系统部署设计"></a>系统部署设计</h4><p>项目采用线上部署，系统结构如图所示，我们使用一台安装nginx的负载均衡服务器按照配置好的规则将请求分发到两台tomcat服务器上，tomcat服务器之间配置数据库的主主同步，同时共同使用另一台服务器上的redis服务，保证了数据的一致性。nginx服务器同时也作为静态资源服务器，完成两台tomcat服务器访问静态资源及上传文件的功能。</p>
-<p>由于Nginx配置包含ip_hash，因此用户在设备不变时只能访问一台特定的tomcat服务器，当ip地址改变时，可能就会访问另一个tomcat服务器。如果遇到第一个服务器SERVER-1不能提供服务的情况，将通过nginx的宕机轮询机制，由第二台tomcat服务器SERVER-2进行访问，这样就提高了系统的可用性。</p>
-<p>系统部署拓扑图如下所示：</p>
-<p><img src="/2021/09/09/shopeemall2/3.png" alt="2"></p>
-<h3 id="系统及模块分析"><a href="#系统及模块分析" class="headerlink" title="系统及模块分析"></a>系统及模块分析</h3><h4 id="系统整体分析"><a href="#系统整体分析" class="headerlink" title="系统整体分析"></a>系统整体分析</h4><p><img src="/2021/09/09/shopeemall2/4.jpg" alt="4"></p>
-<p><img src="/2021/09/09/shopeemall2/5.jpg" alt="5"></p>
-<h4 id="登录注册模块分析"><a href="#登录注册模块分析" class="headerlink" title="登录注册模块分析"></a>登录注册模块分析</h4><p><img src="/2021/09/09/shopeemall2/6.png" alt="6"></p>
-<p><img src="/2021/09/09/shopeemall2/7.png" alt="7"></p>
-<h4 id="商品浏览模块分析"><a href="#商品浏览模块分析" class="headerlink" title="商品浏览模块分析"></a>商品浏览模块分析</h4><p><img src="/2021/09/09/shopeemall2/8.png" alt="6"></p>
-<p><img src="/2021/09/09/shopeemall2/9.png" alt="7"></p>
-<h4 id="订单管理模块分析"><a href="#订单管理模块分析" class="headerlink" title="订单管理模块分析"></a>订单管理模块分析</h4><p><img src="/2021/09/09/shopeemall2/10.png" alt="7"></p>
-<h3 id="功能设计"><a href="#功能设计" class="headerlink" title="功能设计"></a>功能设计</h3><p>网上商城共分两个部分，一部分是面向用户的部分，包括：顾客在线注册、购物、提交订单、付款等操作；另外一部分是商城管理部分，这部分的内容包括：产品的添加、删除、查询、订单的管理、操作员的管理、注册用户的管理等。</p>
-<p><img src="/2021/09/09/shopeemall2/11.png" alt="7"></p>
-<h4 id="前台普通用户功能设计"><a href="#前台普通用户功能设计" class="headerlink" title="前台普通用户功能设计"></a>前台普通用户功能设计</h4><p><img src="/2021/09/09/shopeemall2/12.png" alt="7"></p>
-<p><img src="/2021/09/09/shopeemall2/13.png" alt="7"></p>
-<p><img src="/2021/09/09/shopeemall2/14.png" alt="7"></p>
-<p><img src="/2021/09/09/shopeemall2/15.png" alt="7"></p>
-<p><img src="/2021/09/09/shopeemall2/16.png" alt="7"></p>
-<h4 id="后台管理员功能设计"><a href="#后台管理员功能设计" class="headerlink" title="后台管理员功能设计"></a>后台管理员功能设计</h4><p><img src="/2021/09/09/shopeemall2/17.png" alt="7"></p>
-<p><img src="/2021/09/09/shopeemall2/18.png" alt="7"></p>
-<p><img src="/2021/09/09/shopeemall2/19.png" alt="7"></p>
-<p><img src="/2021/09/09/shopeemall2/20.png" alt="7"></p>
-<p><img src="/2021/09/09/shopeemall2/21.png" alt="7"></p>
-<h3 id="详细设计"><a href="#详细设计" class="headerlink" title="详细设计"></a>详细设计</h3><h4 id="数据库设计"><a href="#数据库设计" class="headerlink" title="数据库设计"></a>数据库设计</h4><p>MySQL作为主存储，存储持久化数据。市场上流行的 持久化数据库主要有 Oracle、SYBASE、MySQL、DB2、Informix等，而MySQL可作为中小型数据管理系统的首选。根据以上分析，本系统后台持久化数据库决定采用MySQL 为后台数据库。</p>
-<h4 id="数据库概念设计"><a href="#数据库概念设计" class="headerlink" title="数据库概念设计"></a>数据库概念设计</h4><p><img src="/2021/09/09/shopeemall2/22.png" alt="7"></p>
-<p><img src="/2021/09/09/shopeemall2/23.png" alt="7"></p>
-<p><img src="/2021/09/09/shopeemall2/24.png" alt="7"></p>
-<h4 id="数据库逻辑设计"><a href="#数据库逻辑设计" class="headerlink" title="数据库逻辑设计"></a>数据库逻辑设计</h4><p><img src="/2021/09/09/shopeemall2/25.png" alt="7"></p>
-<p><img src="/2021/09/09/shopeemall2/26.png" alt="7"></p>
-<p><img src="/2021/09/09/shopeemall2/27.png" alt="7"></p>
-<p><img src="/2021/09/09/shopeemall2/28.png" alt="7"></p>
-
+          <p><img src="/2021/09/09/shopeemall2/front.png" alt="front"></p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/09/09/shopeemall2/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
