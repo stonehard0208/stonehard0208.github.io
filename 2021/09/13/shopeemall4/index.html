@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"stonehard0208.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="基于SpringBoot+Nginx+Redis的电子商城（四）">
+<meta property="og:url" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/index.html">
+<meta property="og:site_name" content="Chaya&#39;s blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/front.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/1.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/2.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/3.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/4.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/5.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/6.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/7.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/8.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/9.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/10.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/11.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/12.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/13.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/14.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/15.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/16.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/17.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/18.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/19.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/20.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/21.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/22.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/23.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/24.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/25.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/26.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/27.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/28.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/29.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/30.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/31.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/32.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/33.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/34.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/35.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/36.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/37.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/38.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/39.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/40.png">
+<meta property="article:published_time" content="2021-09-13T11:31:22.000Z">
+<meta property="article:modified_time" content="2021-09-13T12:32:04.782Z">
+<meta property="article:author" content="Chaya Chen Yin">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://stonehard0208.github.io/2021/09/13/shopeemall4/front.png">
+
+<link rel="canonical" href="http://stonehard0208.github.io/2021/09/13/shopeemall4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>基于SpringBoot+Nginx+Redis的电子商城（四） | Chaya's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Chaya's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://stonehard0208.github.io/2021/09/13/shopeemall4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Chaya Chen Yin">
+      <meta itemprop="description" content="RECORD MY LIFE">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chaya's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          基于SpringBoot+Nginx+Redis的电子商城（四）
+        </h1>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-09-13 19:31:22 / 修改时间：20:32:04" itemprop="dateCreated datePublished" datetime="2021-09-13T19:31:22+08:00">2021-09-13</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="/2021/09/13/shopeemall4/front.png" alt="front"></p>
+<span id="more"></span>
+
+<h1 id="基于SpringBoot-Nginx-Redis的电子商城（四）"><a href="#基于SpringBoot-Nginx-Redis的电子商城（四）" class="headerlink" title="基于SpringBoot+Nginx+Redis的电子商城（四）"></a>基于SpringBoot+Nginx+Redis的电子商城（四）</h1><h2 id="项目实现"><a href="#项目实现" class="headerlink" title="项目实现"></a>项目实现</h2><h3 id="普通用户功能展示"><a href="#普通用户功能展示" class="headerlink" title="普通用户功能展示"></a>普通用户功能展示</h3><p>虾皮SHOPEE商城为用户提供以下购物功能，满足用户购物需求。</p>
+<p>（1）进入首页</p>
+<p><img src="/2021/09/13/shopeemall4/1.png" alt="1"></p>
+<p>（2）用户注册</p>
+<p><img src="/2021/09/13/shopeemall4/2.png" alt="1"></p>
+<p>（3）用户登录</p>
+<p><img src="/2021/09/13/shopeemall4/3.png" alt="1"></p>
+<p>（4）搜索商品</p>
+<p><img src="/2021/09/13/shopeemall4/4.png" alt="1"></p>
+<p>（5）分类检索</p>
+<p><img src="/2021/09/13/shopeemall4/5.png" alt="1"></p>
+<p>（6）查看商品推荐</p>
+<p><img src="/2021/09/13/shopeemall4/6.png" alt="1"></p>
+<p>（7）浏览商品</p>
+<p><img src="/2021/09/13/shopeemall4/7.png" alt="1"></p>
+<p>（8）添加购物车</p>
+<p><img src="/2021/09/13/shopeemall4/8.png" alt="1"></p>
+<p>（9）修改购物车</p>
+<p><img src="/2021/09/13/shopeemall4/9.png" alt="1"></p>
+<p>（10）提交订单</p>
+<p><img src="/2021/09/13/shopeemall4/10.png" alt="1"></p>
+<p>（11）支付订单</p>
+<p><img src="/2021/09/13/shopeemall4/11.png" alt="1"></p>
+<p>（12）退出登录</p>
+<p><img src="/2021/09/13/shopeemall4/12.png" alt="1"></p>
+<p>（13）查看个人信息</p>
+<p><img src="/2021/09/13/shopeemall4/13.png" alt="1"></p>
+<p>（14）修改个人信息</p>
+<p><img src="/2021/09/13/shopeemall4/14.png" alt="1"></p>
+<p>（15）查看热销榜</p>
+<p><img src="/2021/09/13/shopeemall4/15.png" alt="1"></p>
+<h3 id="后台管理员功能展示"><a href="#后台管理员功能展示" class="headerlink" title="后台管理员功能展示"></a>后台管理员功能展示</h3><p><img src="/2021/09/13/shopeemall4/16.png" alt="1"></p>
+<p><img src="/2021/09/13/shopeemall4/17.png" alt="1"></p>
+<p><img src="/2021/09/13/shopeemall4/18.png" alt="1"></p>
+<p><img src="/2021/09/13/shopeemall4/19.png" alt="1"></p>
+<p><img src="/2021/09/13/shopeemall4/20.png" alt="1"></p>
+<p><img src="/2021/09/13/shopeemall4/21.png" alt="1"></p>
+<h2 id="网站测试"><a href="#网站测试" class="headerlink" title="网站测试"></a>网站测试</h2><p><img src="/2021/09/13/shopeemall4/22.png" alt="1"></p>
+<h3 id="基准测试过程"><a href="#基准测试过程" class="headerlink" title="基准测试过程"></a>基准测试过程</h3><h4 id="录制测试脚本"><a href="#录制测试脚本" class="headerlink" title="录制测试脚本"></a>录制测试脚本</h4><p>分别录制浏览、登录、添加购物车、提交订单四个脚本，并设置事务与集合点，添加文字检查点，设置参数化。</p>
+<p><img src="/2021/09/13/shopeemall4/23.png" alt="1"></p>
+<p><img src="/2021/09/13/shopeemall4/24.png" alt="1"></p>
+<p><img src="/2021/09/13/shopeemall4/25.png" alt="1"></p>
+<h4 id="设置场景，分别进行基准测试"><a href="#设置场景，分别进行基准测试" class="headerlink" title="设置场景，分别进行基准测试"></a>设置场景，分别进行基准测试</h4><p><img src="/2021/09/13/shopeemall4/26.png" alt="1"></p>
+<h3 id="基准测试结果"><a href="#基准测试结果" class="headerlink" title="基准测试结果"></a>基准测试结果</h3><p><img src="/2021/09/13/shopeemall4/27.png" alt="1"></p>
+<p><img src="/2021/09/13/shopeemall4/28.png" alt="1"></p>
+<p><img src="/2021/09/13/shopeemall4/29.png" alt="1"></p>
+<p><img src="/2021/09/13/shopeemall4/30.png" alt="1"></p>
+<p><img src="/2021/09/13/shopeemall4/31.png" alt="1"></p>
+<p><img src="/2021/09/13/shopeemall4/32.png" alt="1"></p>
+<h3 id="并发测试过程"><a href="#并发测试过程" class="headerlink" title="并发测试过程"></a>并发测试过程</h3><h4 id="设置场景，进行并发测试"><a href="#设置场景，进行并发测试" class="headerlink" title="设置场景，进行并发测试"></a>设置场景，进行并发测试</h4><p><img src="/2021/09/13/shopeemall4/33.png" alt="1"></p>
+<h3 id="并发测试结果"><a href="#并发测试结果" class="headerlink" title="并发测试结果"></a>并发测试结果</h3><p><img src="/2021/09/13/shopeemall4/34.png" alt="1"></p>
+<p><img src="/2021/09/13/shopeemall4/35.png" alt="1"></p>
+<p><img src="/2021/09/13/shopeemall4/36.png" alt="1"></p>
+<p><img src="/2021/09/13/shopeemall4/37.png" alt="1"></p>
+<p><img src="/2021/09/13/shopeemall4/38.png" alt="1"></p>
+<p><img src="/2021/09/13/shopeemall4/39.png" alt="1"></p>
+<p><img src="/2021/09/13/shopeemall4/40.png" alt="1"></p>
+<h3 id="测试结果说明"><a href="#测试结果说明" class="headerlink" title="测试结果说明"></a>测试结果说明</h3><p>在评估系统性能的过程中，首先需要确定平均事务响应时间是否满足用户使用的需求，在满足用户所需要的功能后，用户最在意的就是网站是否运行流畅，响应时间是否在用户预期内，能否给予用户一个较好的体验感。查看基准测试、并发测试测试可以发现，浏览、登录、添加购物车、提交订单这四个最常用事务响应时间均在2s以内，即用户可以接受的等待时间以内。</p>
+<p><strong>（1）Average Transactions Response Time 平均事务响应时间</strong></p>
+<p>基准测试、并发测试的添加购物车、登录、浏览、提交订单四个事务平均值均在2s以内，属于优秀的响应时间。</p>
+<p><strong>（2）Hits per Second  每秒点击次数 &amp; Throughput 吞吐量</strong></p>
+<p>并发测试中，随着压力的增大， 并发用户数增多，会出现突然降低的的过程</p>
+<p><strong>（3）% Disk Time</strong></p>
+<p>基准测试中平均值为0.41%，最大值为1.471%</p>
+<p>并发测试中平均值为0.918%，最大值为6.300%</p>
+<p>由Disk Time平均值和最大值可以看出，磁盘用于读/写活动所用时间的百分比在一个可接受的范围内（一般来说30%以内最佳），不存在因用户加载网页或注册登录等调用I/O操作导致系统卡顿的情况。</p>
+<p><strong>（4）% Idle Time</strong></p>
+<p>基准测试中平均值为99.615%，最大值为99.831%</p>
+<p>并发测试中平均值为99.374%，最大值为99.828%</p>
+<p>Idle Time表示磁盘系统没有处理请求且队列中没有请求的时间百分比，所有测试结果均大于99%，充分说明系统中存在请求较少，处理速度较快。</p>
+<p><strong>（5）% Processor Time</strong></p>
+<p>基准测试中平均值为15.655%，最大值为39.667%</p>
+<p>并发测试中平均值为18.539%，最大值为30.228%</p>
+<p>Processor Time一般表示CPU利用率，当其范围为75%-95%时说明充分利用了处理器，在基准测试和并发测试中该值过小，说明尚未达到CPU瓶颈，仍需修改为更大的负载压力。</p>
+<p>总的来说，Shopee购物网站性能良好，但仍存在一些问题，需要做出一些优化。</p>
+<p>（1）添加购物车场景。平均事务响应时间的数据显示，该场景有时候会存在响应时间较长的问题。</p>
+<p>（2）并发情况。每秒点击次数和吞吐量显示，随着并发用户增多，系统压力增大，系统性能会迅速下降。</p>
+<p><strong>解决方法：</strong></p>
+<p>（1）更换网站代码中读写操作的SQL执行方式，提高I/O效率</p>
+<p>（2）调整代码业务逻辑，添加事务锁，避免发生死锁</p>
+<p>（3）更换处理器，从源头上提升硬件性能</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Chaya Chen Yin
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://stonehard0208.github.io/2021/09/13/shopeemall4/" title="基于SpringBoot+Nginx+Redis的电子商城（四）">http://stonehard0208.github.io/2021/09/13/shopeemall4/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+
+     
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/09/11/shopeemall3/" rel="prev" title="基于SpringBoot+Nginx+Redis的电子商城（三）">
+      <i class="fa fa-chevron-left"></i> 基于SpringBoot+Nginx+Redis的电子商城（三）
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  
+        <div>
+           <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        </div>
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8ESpringBoot-Nginx-Redis%E7%9A%84%E7%94%B5%E5%AD%90%E5%95%86%E5%9F%8E%EF%BC%88%E5%9B%9B%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">基于SpringBoot+Nginx+Redis的电子商城（四）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.1.</span> <span class="nav-text">项目实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%99%AE%E9%80%9A%E7%94%A8%E6%88%B7%E5%8A%9F%E8%83%BD%E5%B1%95%E7%A4%BA"><span class="nav-number">1.1.1.</span> <span class="nav-text">普通用户功能展示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86%E5%91%98%E5%8A%9F%E8%83%BD%E5%B1%95%E7%A4%BA"><span class="nav-number">1.1.2.</span> <span class="nav-text">后台管理员功能展示</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%AB%99%E6%B5%8B%E8%AF%95"><span class="nav-number">1.2.</span> <span class="nav-text">网站测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95%E8%BF%87%E7%A8%8B"><span class="nav-number">1.2.1.</span> <span class="nav-text">基准测试过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BD%95%E5%88%B6%E6%B5%8B%E8%AF%95%E8%84%9A%E6%9C%AC"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">录制测试脚本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%9C%BA%E6%99%AF%EF%BC%8C%E5%88%86%E5%88%AB%E8%BF%9B%E8%A1%8C%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">设置场景，分别进行基准测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E5%87%86%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C"><span class="nav-number">1.2.2.</span> <span class="nav-text">基准测试结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E6%B5%8B%E8%AF%95%E8%BF%87%E7%A8%8B"><span class="nav-number">1.2.3.</span> <span class="nav-text">并发测试过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%9C%BA%E6%99%AF%EF%BC%8C%E8%BF%9B%E8%A1%8C%E5%B9%B6%E5%8F%91%E6%B5%8B%E8%AF%95"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">设置场景，进行并发测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C"><span class="nav-number">1.2.4.</span> <span class="nav-text">并发测试结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95%E7%BB%93%E6%9E%9C%E8%AF%B4%E6%98%8E"><span class="nav-number">1.2.5.</span> <span class="nav-text">测试结果说明</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chaya Chen Yin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Chaya Chen Yin</p>
+  <div class="site-description" itemprop="description">RECORD MY LIFE</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">8</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/stonehard0208" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stonehard0208" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1696831078@qq.com" title="E-Mail → mailto:1696831078@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021-04 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chaya Chen Yin</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共10.3k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
