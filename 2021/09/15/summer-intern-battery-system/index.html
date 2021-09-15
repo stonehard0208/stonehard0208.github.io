@@ -46,14 +46,14 @@
 <meta property="og:image" content="http://stonehard0208.github.io/2021/09/15/summer-intern-battery-system/12.JPG">
 <meta property="og:image" content="http://stonehard0208.github.io/2021/09/15/summer-intern-battery-system/13.JPG">
 <meta property="og:image" content="http://stonehard0208.github.io/2021/09/15/summer-intern-battery-system/14.JPG">
-<meta property="og:image" content="http://stonehard0208.github.io/2021/09/15/summer-intern-battery-system/Users/16968/Desktop/基于Django和Python的若依系统中电池及电池组部分数据库接口文档/15.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/15/summer-intern-battery-system/15.JPG">
 <meta property="og:image" content="http://stonehard0208.github.io/2021/09/15/summer-intern-battery-system/16.JPG">
-<meta property="og:image" content="http://stonehard0208.github.io/2021/09/15/summer-intern-battery-system/Users/16968/Desktop/基于Django和Python的若依系统中电池及电池组部分数据库接口文档/17.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/15/summer-intern-battery-system/17.JPG">
 <meta property="og:image" content="http://stonehard0208.github.io/2021/09/15/summer-intern-battery-system/18.JPG">
-<meta property="og:image" content="http://stonehard0208.github.io/2021/09/15/summer-intern-battery-system/Users/16968/Desktop/基于Django和Python的若依系统中电池及电池组部分数据库接口文档/19.JPG">
-<meta property="og:image" content="http://stonehard0208.github.io/2021/09/15/summer-intern-battery-system/Users/16968/Desktop/基于Django和Python的若依系统中电池及电池组部分数据库接口文档/20.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/15/summer-intern-battery-system/19.JPG">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/15/summer-intern-battery-system/20.JPG">
 <meta property="article:published_time" content="2021-09-15T08:32:11.000Z">
-<meta property="article:modified_time" content="2021-09-15T11:19:54.566Z">
+<meta property="article:modified_time" content="2021-09-15T12:25:11.817Z">
 <meta property="article:author" content="Chaya Chen Yin">
 <meta property="article:tag" content="Django">
 <meta property="article:tag" content="Python">
@@ -248,7 +248,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-09-15 16:32:11 / 修改时间：19:19:54" itemprop="dateCreated datePublished" datetime="2021-09-15T16:32:11+08:00">2021-09-15</time>
+              <time title="创建时间：2021-09-15 16:32:11 / 修改时间：20:25:11" itemprop="dateCreated datePublished" datetime="2021-09-15T16:32:11+08:00">2021-09-15</time>
             </span>
 
           
@@ -535,7 +535,7 @@
 <p><img src="/2021/09/15/summer-intern-battery-system/14.JPG" alt="14"></p>
 <h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#作用：格式化时间，使得getBatteryPackTime可以返回Json格式的时间</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DateEncoder</span>(<span class="params">json.JSONEncoder</span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">default</span>(<span class="params">self, obj</span>):</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(obj, datetime.datetime):</span><br><span class="line">            <span class="keyword">return</span> obj.strftime(<span class="string">&#x27;%Y-%m-%d %H:%M:%S&#x27;</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> json.JSONEncoder.default(self, obj)</span><br></pre></td></tr></table></figure>
 
-<h2 id="四-获取异常电池、电池组ID及异常数据"><a href="#四-获取异常电池、电池组ID及异常数据" class="headerlink" title="四. 获取异常电池、电池组ID及异常数据"></a>四. 获取异常电池、电池组ID及异常数据</h2><h3 id="内阻异常"><a href="#内阻异常" class="headerlink" title="内阻异常"></a>内阻异常</h3><p><img src="/2021/09/15/summer-intern-battery-system/Users\16968\Desktop\基于Django和Python的若依系统中电池及电池组部分数据库接口文档\15.JPG" alt="15"></p>
+<h2 id="四-获取异常电池、电池组ID及异常数据"><a href="#四-获取异常电池、电池组ID及异常数据" class="headerlink" title="四. 获取异常电池、电池组ID及异常数据"></a>四. 获取异常电池、电池组ID及异常数据</h2><h3 id="内阻异常"><a href="#内阻异常" class="headerlink" title="内阻异常"></a>内阻异常</h3><p><img src="/2021/09/15/summer-intern-battery-system/15.JPG" alt="15"></p>
 <p>文件名：anomalyJudgement.py</p>
 <p>返回内容：异常电池的battery_id，内阻</p>
 <p>返回类型：HttpResponse返回Json，字典列表</p>
@@ -553,7 +553,7 @@
 
 <p>页面显示结果：</p>
 <p><img src="/2021/09/15/summer-intern-battery-system/16.JPG" alt="16"></p>
-<h3 id="温度异常"><a href="#温度异常" class="headerlink" title="温度异常"></a>温度异常</h3><p><img src="/2021/09/15/summer-intern-battery-system/Users\16968\Desktop\基于Django和Python的若依系统中电池及电池组部分数据库接口文档\17.JPG" alt="17"></p>
+<h3 id="温度异常"><a href="#温度异常" class="headerlink" title="温度异常"></a>温度异常</h3><p><img src="/2021/09/15/summer-intern-battery-system/17.JPG" alt="17"></p>
 <p>文件名：anomalyJudgement.py</p>
 <p>返回内容：异常电池的battery_id，temperature</p>
 <p>返回类型：HttpResponse返回Json，列表</p>
@@ -571,7 +571,7 @@
 
 <p>页面显示结果：</p>
 <p><img src="/2021/09/15/summer-intern-battery-system/18.JPG" alt="18"></p>
-<h3 id="电压异常"><a href="#电压异常" class="headerlink" title="电压异常"></a>电压异常</h3><p><img src="/2021/09/15/summer-intern-battery-system/Users\16968\Desktop\基于Django和Python的若依系统中电池及电池组部分数据库接口文档\19.JPG" alt="19"></p>
+<h3 id="电压异常"><a href="#电压异常" class="headerlink" title="电压异常"></a>电压异常</h3><p><img src="/2021/09/15/summer-intern-battery-system/19.JPG" alt="19"></p>
 <p>文件名：anomalyJudgement.py</p>
 <p>返回内容：异常电池的battery_id，temperature</p>
 <p>返回类型：HttpResponse返回Json，列表</p>
@@ -589,7 +589,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//调用函数代码</span></span><br><span class="line">&lt;script&gt;</span><br><span class="line"><span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> Qs <span class="keyword">from</span> <span class="string">&#x27;qs&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> echarts <span class="keyword">from</span> <span class="string">&quot;echarts&quot;</span>;</span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  name:<span class="string">&#x27;Container&#x27;</span>,</span><br><span class="line">  <span class="function"><span class="title">data</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span>&#123;</span><br><span class="line">      batteries:<span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="function"><span class="title">created</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.getdata()</span><br><span class="line">  &#125;,</span><br><span class="line">  methods:&#123;</span><br><span class="line">    <span class="function"><span class="title">getdata</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      axios(&#123;</span><br><span class="line">        headers:&#123;<span class="string">&#x27;Content-Type&#x27;</span>:<span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>&#125;,</span><br><span class="line">        method:<span class="string">&#x27;get&#x27;</span>,</span><br><span class="line">        url:<span class="string">&#x27;http://localhost:8000/getAbnormalVoltageBatteryPackID/&#x27;</span>,</span><br><span class="line">        params:&#123;</span><br><span class="line">          <span class="string">&#x27;time&#x27;</span>:<span class="string">&#x27;2021-06-03 08:49:03&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">      &#125;).then(<span class="function"><span class="params">res</span>=&gt;</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.batteries = res.data</span><br><span class="line">        <span class="built_in">console</span>.log(res.data)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;, </span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 
 <p>接口测试结果（部分打印异常值）：</p>
-<p><img src="/2021/09/15/summer-intern-battery-system/Users\16968\Desktop\基于Django和Python的若依系统中电池及电池组部分数据库接口文档\20.JPG" alt="20"></p>
+<p><img src="/2021/09/15/summer-intern-battery-system/20.JPG" alt="20"></p>
 
     </div>
 
