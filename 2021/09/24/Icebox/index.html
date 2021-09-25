@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"stonehard0208.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"manual","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta property="og:type" content="article">
+<meta property="og:title" content="IceBox冰盒食记（获奖作品）——基于云开发CloudBase的微信小程序（一）">
+<meta property="og:url" content="http://stonehard0208.github.io/2021/09/24/Icebox/index.html">
+<meta property="og:site_name" content="Chaya&#39;s blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://stonehard0208.github.io/2021/09/24/Icebox/front.png">
+<meta property="og:image" content="http://stonehard0208.github.io/1.png">
+<meta property="og:image" content="http://stonehard0208.github.io/2.png">
+<meta property="og:image" content="http://stonehard0208.github.io/3.png">
+<meta property="og:image" content="http://stonehard0208.github.io/4.png">
+<meta property="article:published_time" content="2021-09-24T13:57:32.000Z">
+<meta property="article:modified_time" content="2021-09-25T06:57:27.213Z">
+<meta property="article:author" content="Chaya Chen Yin">
+<meta property="article:tag" content="WechatMiniProgram">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://stonehard0208.github.io/2021/09/24/Icebox/front.png">
+
+<link rel="canonical" href="http://stonehard0208.github.io/2021/09/24/Icebox/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>IceBox冰盒食记（获奖作品）——基于云开发CloudBase的微信小程序（一） | Chaya's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Chaya's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://stonehard0208.github.io/2021/09/24/Icebox/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Chaya Chen Yin">
+      <meta itemprop="description" content="RECORD MY LIFE">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Chaya's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          IceBox冰盒食记（获奖作品）——基于云开发CloudBase的微信小程序（一）
+        </h1>
+
+        <div class="post-meta">
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-09-24 21:57:32" itemprop="dateCreated datePublished" datetime="2021-09-24T21:57:32+08:00">2021-09-24</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-09-25 14:57:27" itemprop="dateModified" datetime="2021-09-25T14:57:27+08:00">2021-09-25</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><img src="/2021/09/24/Icebox/front.png" alt="front"></p>
+<span id="more"></span>
+
+<h1 id="IceBox冰盒食记（获奖作品）——基于云开发CloudBase的微信小程序（一）"><a href="#IceBox冰盒食记（获奖作品）——基于云开发CloudBase的微信小程序（一）" class="headerlink" title="IceBox冰盒食记（获奖作品）——基于云开发CloudBase的微信小程序（一）"></a>IceBox冰盒食记（获奖作品）——基于云开发CloudBase的微信小程序（一）</h1><h2 id="零：简介-Brief-Introduction"><a href="#零：简介-Brief-Introduction" class="headerlink" title="零：简介 Brief Introduction"></a>零：简介 Brief Introduction</h2><p>本项目曾获2021中国高校微信小程序应用开发赛华南赛区二等奖，原本是冲省一国二的，可惜今年太玄学了哈哈哈，不过和舍友四个人一起熬夜两周肝项目的经历真的很美好，虽然结果不尽人意，但是过程还是很快乐的（尤其是本人一边肝项目一边考雅思一边搞互联网+的比赛，真是美好又痛苦的回忆）。 </p>
+<p>[Github:IceBox](<a target="_blank" rel="noopener" href="https://github.com/stonehard0208/IceBox-A-Wechat-mini-program-based-on-CloudBase">stonehard0208/IceBox-A-Wechat-mini-program-based-on-CloudBase (github.com)</a>)  </p>
+<p>This project won the second prize in the South China Region of the 2021 China University WeChat Mini Program Application Development Competition, originally for the first prize at the provincial level and the second prize at the national level, but unfortunately this year we are unlucky LOL, but the experience of staying up all night for a fortnight with my four housemates for the project was really good. Although the result was not satisfactory, the process was still very happy (especially when I took the IELTS exam while doing the Internet plus competition and this project, which was a good and also painful memory).</p>
+<h2 id="一：项目介绍-Project-Description"><a href="#一：项目介绍-Project-Description" class="headerlink" title="一：项目介绍 Project Description"></a>一：项目介绍 Project Description</h2><h3 id="小程序简介-Introduction-to-the-applet"><a href="#小程序简介-Introduction-to-the-applet" class="headerlink" title="小程序简介 Introduction to the applet"></a>小程序简介 Introduction to the applet</h3><p>冰盒食记，取自冰河世纪的谐音词。冰盒，指代冰箱，食记，指食物的保存记录。 </p>
+<p>冰盒食记小程序是一款以反食品浪费法为导向的应用。以冰箱存储为主体，通过及时管理冰箱达到减少食品浪费的目的。本小程序主要包含冰箱管理、购物清单、识别功能、资讯推送、食物科普、个人中心、卡牌收集七个模块。  </p>
+<p>The Icebox is an app that is oriented towards anti-food waste laws. With fridge storage as the main focus, it aims to reduce food waste by managing the fridge in a timely manner. This applet contains seven main modules: fridge management, shopping list, identification function, information push, food science, personal centre and card collection.</p>
+<h3 id="开发背景和意义-Background-and-significance-of-development"><a href="#开发背景和意义-Background-and-significance-of-development" class="headerlink" title="开发背景和意义 Background and significance of development"></a>开发背景和意义 Background and significance of development</h3><p>十三届全国人大常委会第二十八次会议表决通过了《中华人民共和国反食品浪费法》（以下简称《反食品浪费法》），透过这一事件看向本质，立法原因有迹可循。俗话说“民以食为天”，人们对吃食的追求逐渐提高，伴生的浪费现象也是触目惊心。作为一个农业大国，我们用全球9%的耕地、6%的淡水资源生产出来的粮食，养活了全球近20%的人口，虽然我们粮食连年丰收，但也因此纵容了人们对食品浪费的不重视。据中国农业科学院估算，粮食全产业链总损耗率约为12%，即每年粮食损耗高达7800万吨，其中因食品过保质期造成的浪费十分严重，仅进口食品过期扔掉的每年大约有30多亿美元，这一数据引起了我们的注意。  </p>
+<p>At the 28th meeting of the Standing Committee of the 13th National People’s Congress, the Anti-Food Waste Law of the People’s Republic of China (hereinafter referred to as the “Anti-Food Waste Law”) was passed. As the old saying goes, “Food is the key to life”, the pursuit of food has gradually increased and the accompanying waste is alarming. As an agricultural nation, we use 9% of the world’s arable land and 6% of its freshwater resources to produce food to feed nearly 20% of the world’s population, and although we have had bumper crops year after year, we have also indulged in a lack of attention to food waste. According to estimates by the Chinese Academy of Agricultural Sciences, the total loss rate of the entire food industry chain is about 12%, i.e. up to 78 million tonnes of food is lost every year, of which the waste caused by food that has passed its shelf life is very serious, with imported food alone being thrown away out of date at about US$3 billion a year, a figure that has drawn our attention.  </p>
+<p><img src="/1.png" alt="1"></p>
+<p>节约粮食一直都是中华民族弘扬的传统美德，是对我们如今享受的幸福生活的敬畏之举。我们小组仔细研读了《反食品浪费法》，并以此为核心查阅了近几年来关于食品浪费的相关文献资料，其后还进行了一定的调研，总结得到当前食品浪费现象存在的重要原因是公众虽具有一定的节约粮食的意识，但部分人缺乏操作的相关知识和能力，如因工作学习繁忙而食品的购买日期，又或者不清楚食品的保质期从而没能如期吃完。我们分析了以上情况，研究开发出冰盒食记小程序，希望通过帮助用户管理冰箱、推送反粮食浪费有关资讯、科普食品保质期及相关知识，从而逐渐让用户在意识和行为上都能响应国家反食品浪费的号召，依法履行厨余垃圾源头减量的义务。  </p>
+<p>Food conservation has always been a traditional virtue promoted by the Chinese people as an act of reverence for the happy life we enjoy today. Our group has studied the Anti-Food Waste Law and reviewed the literature on food waste in recent years, followed by some research, and concluded that an important reason for the current food waste phenomenon is that although the public has some awareness of food saving, some people lack the knowledge and ability to do so, such as forgetting the date of purchase of food due to busy work and study, or they are not aware of the shelf life of food and therefore do not finish it on time. We have analysed the above situation and developed the Icebox Eats app to help users manage their fridges, push out information on anti-food waste and educate them on food shelf life and related knowledge, so that they can gradually respond to the national call for anti-food waste and fulfill their obligation to reduce food waste at source according to the law.</p>
+<h3 id="相似产品分析与创新-Similar-product-analysis-and-innovation"><a href="#相似产品分析与创新-Similar-product-analysis-and-innovation" class="headerlink" title="相似产品分析与创新 Similar product analysis and innovation"></a><strong>相似产品分析与创新</strong> <strong>Similar product analysis and innovation</strong></h3><h4 id="相似产品分析-Analysis"><a href="#相似产品分析-Analysis" class="headerlink" title="相似产品分析 Analysis"></a>相似产品分析 Analysis</h4><p>目前国内存在的以反食品浪费为主题的产品少之又少，比较出名的是“光盘打卡”小程序；同时以冰箱为主题的应用也是凤毛麟角，在华为市场上能搜到的只有“云冰箱管家”，微信小程序上也只有“喔冰箱”和“冰箱盒子”两个相关小程序。  </p>
+<p>At present, there are very few anti-food waste products in China, the most famous one being the “Finish eating” app. The only app available on Huawei Market is “Cloud Fridge Manager”. On Wechat Mini Program platform, we have “wow Fridge” and  “Fridge Box”.</p>
+<p><img src="/2.png" alt="2"></p>
+<p>“光盘打卡”小程序直接与公益挂钩，通过打卡攒积分换奖品的方式吸引用户使用，在校园和城市中推广。但相对而言，基本上该小程序面向的用户基本为团体成员，由团体带动的打卡活动，对于个人，并没有太大的打卡意向和动力。同时，小程序中的光盘打卡并不能很好的区分盛有粮食吃完的空盘还是干净的盘子，这可能会造成有投机取巧的人为了兑换奖品而进行伪造打卡。  </p>
+<p>“喔冰箱”和“冰箱盒子”是比较简单的工具类小程序，具备抽象存储的特点，优点是可以通过扫码和识物来进行添加，但很多地方并不完善，例如添加物品后需要通过手动刷新来更新数据。且功能相对简单，且没有推荐保存日期。众所周知，造成保存不当过期的浪费大部分原因是不知道存储的大致期限，没有推荐日期不利于合理的食品存储。  </p>
+<p>“云冰箱管家”是一个比较成熟的、已经上线的app，采用语音输入的方式，比较便捷。但语音识别存在一定的误差，同时对于比较复杂的短语不能准确识别，例如“放入一个土鸡蛋”会被识别成“放入一只土鸡”，同时对于此软件，还存在数据前后不一致的情况。除此以外，不同时期购买的相同物品并不能相互区分开，除了记录下购买时间，并不能帮助用户区分。  </p>
+<p>The “Finish eating” app is directly linked to public welfare, attracting users to use it by exchanging points for prizes, and promoting it on campuses and in cities. However, the app is basically aimed at groups of people who are motivated by the group to punch cards, but there is little incentive for individuals to do so. At the same time, the app does not distinguish between empty and clean plates with finished food, which could lead to opportunistic people faking the cards in order to redeem prizes.  </p>
+<p>The “wow fridge” and “fridge box” are relatively simple tools, with abstract storage features, the advantage is that you can add items by scanning the code and recognising them, but many areas are not perfect, such as the need to update the data by manually refreshing after adding items. For example, after adding an item, you need to update the data by manually refreshing it. The functionality is relatively simple and there is no recommended save date. It is well known that much of the waste caused by improper storage is due to a lack of knowledge of the approximate storage period, and the lack of recommended dates is not conducive to sensible food storage.  </p>
+<p>The “Cloud Fridge Manager” is a relatively mature app that is already online and uses voice input, which is convenient. However, there are some errors in voice recognition, and complex phrases are not accurately recognised, for example, “put in a clay egg” is recognised as “put in a clay chicken”, and there are inconsistencies in the data for this app. In addition to this, the same items purchased at different times are not distinguishable from each other and do not help the user to distinguish between them other than by recording the time of purchase.</p>
+<h3 id="冰盒食记创新点-Innovation"><a href="#冰盒食记创新点-Innovation" class="headerlink" title="冰盒食记创新点 Innovation"></a>冰盒食记创新点 Innovation</h3><p>（1）<strong>界面优美，简单易上手：</strong>对新用户有引导界面，引导用户使用本应用。对食物采用保质期升序排列，紧急情况一目了然。</p>
+<p>（2）<strong>提供推荐保质期，拒绝过期浪费：</strong>“冰盒食记”采用文字输入的方法，通过选择食物的大类小类来提供推荐保质期，同时用户也可以自己手动设置保质期，使得一些不明食物保质期的用户能够及时处理食物，减少浪费。</p>
+<p>（3）<strong>支持上传实物图，避免混淆</strong>：用户可以通过上传实物图来对应现实中的食物，避免同样不同时购买的食物混淆。</p>
+<p>（4）<strong>备忘录与冰箱结合，高效采购：</strong>促进用户按需购买，减少用户不必要的购物冲动。用户还可以在购物期间查看冰箱内剩余物品，方便用户采购。</p>
+<p>（5）<strong>临近过期提醒，减少浪费：</strong>在食品快要过期时弹出提示框，提醒用户及时处理食材，避免造成浪费；在食品过期时提醒用户要尽快处理，避免扩大损失。</p>
+<p>（6）<strong>果蔬识别，助你先人一步</strong>：遇到不了解的果蔬时可以通过识别功能识别果蔬，进一步可以查询果蔬的信息。</p>
+<p>（7）<strong>食物科普与资讯推送，了解当下热点：</strong>通过科普模块可以了解到食物保质期、卡路里等信息，通过资讯推送了解当下食品热点议题。</p>
+<p>（8）<strong>卡牌收集，促进饮食均衡：</strong>卡牌收集功能可以为用户添加适当的惊喜，用户可以通过卡牌来了解自己食用的偏好，同时为了收集所有卡牌而食用其他食物，促进饮食均衡，有助于身体健康，减少隐性浪费。    </p>
+<p>(1) <strong>Beautiful interface, simple to use:</strong> For new users there is a guidance interface to guide the user through the application. The food is arranged in ascending order of shelf life, so that emergencies can be understood at a glance.</p>
+<p>(2) **Provides recommended shelf life, refusing to expire and waste: **”Icebox Food” uses text input to provide recommended shelf life by selecting major and minor categories of food, while users can also manually set their own shelf life, allowing some users who do not know the shelf life of food to dispose of food in a timely manner and reduce waste.</p>
+<p>(3) <strong>Support for uploading physical pictures to avoid confusion</strong>: Users can upload physical pictures to correspond to real food, avoiding confusion between foods that are also purchased at the same time.</p>
+<p>(4) <strong>Memos combined with fridge for efficient purchasing:</strong> Promoting users to buy on demand and reducing their unnecessary shopping impulses. Users can also check the remaining items in the fridge during shopping, making it easier for them to make purchases.</p>
+<p>(5) <strong>Alerting when food is about to expire to reduce waste:</strong> Pop-up box when food is about to expire to remind users to dispose of ingredients in time to avoid waste; reminding users to dispose of food as soon as possible when it expires to avoid expanding losses.</p>
+<p>(6) <strong>Fruit and vegetable identification to help you stay one step ahead</strong>: When you encounter fruits and vegetables that you do not understand, you can identify them through the identification function, and further you can check the information of the fruits and vegetables.</p>
+<p>(7) <strong>Food science and information push, understand the current hot topics:</strong> Through the science module you can learn about food shelf life, calories and other information, and through the information push to understand the current food hot topics.</p>
+<p>(8) <strong>Card collection to promote a balanced diet:</strong> The card collection function can add the right amount of surprise to users, who can use the cards to learn about their eating preferences while eating other foods in order to collect all the cards, promoting a balanced diet, contributing to good health and reducing hidden waste.  </p>
+<h2 id="需求分析-Requirements-analysis"><a href="#需求分析-Requirements-analysis" class="headerlink" title="需求分析 Requirements analysis"></a>需求分析 Requirements analysis</h2><p>冰盒食记主要是面向所有有食品管理需求的用户，可以是对食品保质期不了解，但需要保存食品的年轻人，可以是记性比较差的老年人，可以是有高效购买计划的用户，同时也可以是对卡牌有收集爱好的用户。    </p>
+<p>The Icebox is aimed at all users with food management needs, either young people who are not aware of the shelf life of food but need to preserve it, older people who have a poor memory, users who have an efficient buying plan, and also users who have a hobby of collecting cards.</p>
+<h3 id="用户画像-User-Profile"><a href="#用户画像-User-Profile" class="headerlink" title="用户画像 User Profile"></a>用户画像 User Profile</h3><p>我们通过描述本产品的主要用户的形象，根据其需求、喜好、行为来调整产品的界面设计、交互、功能需求使产品更符合目标用户的预期。  </p>
+<p>By profiling the main users of the product, we tailor the interface design, interaction and functional requirements of the product to better match the expectations of the target users based on their needs, preferences and behaviours.</p>
+<p><img src="/3.png" alt="3"></p>
+<h3 id="应用场景-Application-Scenario"><a href="#应用场景-Application-Scenario" class="headerlink" title="应用场景 Application Scenario"></a>应用场景 Application Scenario</h3><p><img src="/4.png" alt="4"></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Chaya Chen Yin
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://stonehard0208.github.io/2021/09/24/Icebox/" title="IceBox冰盒食记（获奖作品）——基于云开发CloudBase的微信小程序（一）">http://stonehard0208.github.io/2021/09/24/Icebox/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+
+     
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/WechatMiniProgram/" rel="tag"># WechatMiniProgram</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/09/15/summer-intern-battery-system/" rel="prev" title="基于Django的电池管理系统">
+      <i class="fa fa-chevron-left"></i> 基于Django的电池管理系统
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  
+        <div>
+           <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:24px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+        </div>
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IceBox%E5%86%B0%E7%9B%92%E9%A3%9F%E8%AE%B0%EF%BC%88%E8%8E%B7%E5%A5%96%E4%BD%9C%E5%93%81%EF%BC%89%E2%80%94%E2%80%94%E5%9F%BA%E4%BA%8E%E4%BA%91%E5%BC%80%E5%8F%91CloudBase%E7%9A%84%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%EF%BC%88%E4%B8%80%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">IceBox冰盒食记（获奖作品）——基于云开发CloudBase的微信小程序（一）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%B6%EF%BC%9A%E7%AE%80%E4%BB%8B-Brief-Introduction"><span class="nav-number">1.1.</span> <span class="nav-text">零：简介 Brief Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%EF%BC%9A%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D-Project-Description"><span class="nav-number">1.2.</span> <span class="nav-text">一：项目介绍 Project Description</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%8F%E7%A8%8B%E5%BA%8F%E7%AE%80%E4%BB%8B-Introduction-to-the-applet"><span class="nav-number">1.2.1.</span> <span class="nav-text">小程序简介 Introduction to the applet</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E5%8F%91%E8%83%8C%E6%99%AF%E5%92%8C%E6%84%8F%E4%B9%89-Background-and-significance-of-development"><span class="nav-number">1.2.2.</span> <span class="nav-text">开发背景和意义 Background and significance of development</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B8%E4%BC%BC%E4%BA%A7%E5%93%81%E5%88%86%E6%9E%90%E4%B8%8E%E5%88%9B%E6%96%B0-Similar-product-analysis-and-innovation"><span class="nav-number">1.2.3.</span> <span class="nav-text">相似产品分析与创新 Similar product analysis and innovation</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%9B%B8%E4%BC%BC%E4%BA%A7%E5%93%81%E5%88%86%E6%9E%90-Analysis"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">相似产品分析 Analysis</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%B0%E7%9B%92%E9%A3%9F%E8%AE%B0%E5%88%9B%E6%96%B0%E7%82%B9-Innovation"><span class="nav-number">1.2.4.</span> <span class="nav-text">冰盒食记创新点 Innovation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90-Requirements-analysis"><span class="nav-number">1.3.</span> <span class="nav-text">需求分析 Requirements analysis</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E7%94%BB%E5%83%8F-User-Profile"><span class="nav-number">1.3.1.</span> <span class="nav-text">用户画像 User Profile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF-Application-Scenario"><span class="nav-number">1.3.2.</span> <span class="nav-text">应用场景 Application Scenario</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Chaya Chen Yin"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Chaya Chen Yin</p>
+  <div class="site-description" itemprop="description">RECORD MY LIFE</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">12</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/stonehard0208" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;stonehard0208" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:1696831078@qq.com" title="E-Mail → mailto:1696831078@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2021-04 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Chaya Chen Yin</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+<div class="theme-info">
+  <div class="powered-by"></div>
+  <span class="post-count">博客全站共19.2k字</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
