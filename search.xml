@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>关于pip安装提示Could not find a version that satisfies the requirement的解决方法</title>
+      <link href="2022/02/06/%E5%85%B3%E4%BA%8Epip%E5%AE%89%E8%A3%85%E6%8F%90%E7%A4%BACould-not-find-a-version-that-satisfies-the-requirement%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/"/>
+      <url>2022/02/06/%E5%85%B3%E4%BA%8Epip%E5%AE%89%E8%A3%85%E6%8F%90%E7%A4%BACould-not-find-a-version-that-satisfies-the-requirement%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<p><img src="/2022/02/06/%E5%85%B3%E4%BA%8Epip%E5%AE%89%E8%A3%85%E6%8F%90%E7%A4%BACould-not-find-a-version-that-satisfies-the-requirement%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/front.png" alt="front"></p><span id="more"></span><h1 id="关于pip安装提示Could-not-find-a-version-that-satisfies-the-requirement的解决方法"><a href="#关于pip安装提示Could-not-find-a-version-that-satisfies-the-requirement的解决方法" class="headerlink" title="关于pip安装提示Could not find a version that satisfies the requirement的解决方法"></a>关于pip安装提示Could not find a version that satisfies the requirement的解决方法</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>pip安装包，提示Could not find a version that satisfies the requirement</p><p><img src="/2022/02/06/%E5%85%B3%E4%BA%8Epip%E5%AE%89%E8%A3%85%E6%8F%90%E7%A4%BACould-not-find-a-version-that-satisfies-the-requirement%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/1.png" alt="front"></p><h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>身在天朝，需要使用镜像源</p><p>ps：试过科学上网，但是并不能解决</p><h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><p>使用国内豆瓣镜像源即可<br><img src="/2022/02/06/%E5%85%B3%E4%BA%8Epip%E5%AE%89%E8%A3%85%E6%8F%90%E7%A4%BACould-not-find-a-version-that-satisfies-the-requirement%E7%9A%84%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95/2.png" alt="front"></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> -flask -python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>IceBox冰盒食记（获奖作品）——基于云开发CloudBase的微信小程序（二）</title>
       <link href="2021/09/27/Icebox2/"/>
       <url>2021/09/27/Icebox2/</url>
